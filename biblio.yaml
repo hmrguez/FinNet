@@ -1,0 +1,156 @@
+survey:
+  type: Article
+  title: "Graph Retrieval-Augmented Generation: A Survey"
+  author:
+    - BOCI PENG
+    - YUN ZHU
+    - YONGCHAO LIU
+    - XIAOHE BO
+    - HAIZHOU SHI
+    - CHUNTAO HONG
+    - YAN ZHANG
+    - SILIANG TANG
+  year: 2024
+  journal: "ACM"
+  volume: 37
+  issue: 4
+
+qa-rag:
+  type: Article
+  title: "G-Retriever: Retrieval-Augmented Generation for Textual Graph Understanding and Question Answering"
+  author:
+    - Xiaoxin He
+    - Yijun Tian
+    - Yifei Sun
+    - Nitesh V. Chawla
+    - Thomas Laurent
+    - Yann LeCun
+    - Xavier Bresson
+    - Bryan Hooi
+  year: 2024
+
+grag:
+  type: Article
+  title: "GRAG: Graph Retrieval-Augmented Generation"
+  author:
+    - Yuntong Hu
+    - Zhihan Lei
+    - Zheng Zhang
+    - Bo Pan
+    - Chen Ling
+    - Liang Zhao
+  year: 2024
+
+weknow:
+  type: Article
+  title: "WeKnow-RAG: An Adaptive Approach for Retrieval-Augmented Generation Integrating Web Search and Knowledge Graphs"
+  author:
+    - Zetian Hu
+    - Weijian Xie
+    - Xuefeng Liang
+    - Yuhui Liu
+    - Kaihua Ni
+    - Hong Cheng
+  year: 2024
+
+reano:
+  type: Article
+  title: "REANO: Optimising Retrieval-Augmented Reader Models through Knowledge Graph Generation"
+  author:
+    - Jinyuan Fang
+    - Zaiqiao Meng
+    - Craig Macdonald
+  year: 2024
+  journal: Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics 
+  volume: 1
+  pages: 2094-2112
+
+
+trace:
+  type: Article
+  title: "TRACE the Evidence: Constructing Knowledge-Grounded Reasoning Chains for Retrieval-Augmented Generation"
+  author:
+    - Jinyuan Fang
+    - Zaiqiao Meng
+    - Craig Macdonald
+  year: 2024
+
+bailicai:
+  type: Article
+  title: "Bailicai: A Domain-Optimized Retrieval-Augmented Generation Framework for Medical Applications"
+  author:
+    - Cui Long
+    - Yongbin Liu
+    - Chunping Ouyang
+    - Ying Yu
+  year: 2024
+
+
+ragcache:
+  type: Article
+  title: "RAGCache: Efficient Knowledge Caching for Retrieval-Augmented Generation"
+  author:
+    - Chao Jin
+    - Zili Zhang
+    - Xuanlin Jiang
+    - Fangyue Liu
+    - Xin Liu
+    - Xuanzhe Liu
+    - Xin Jin
+  year: 2024
+
+richanswerenc:
+  type: Article
+  title: "Retrieval Augmented Generation with Rich Answer Encoding"
+  author:
+    - Wenyu Huang
+    - Mirella Lapata
+    - Pavlos Vougiouklis
+    - Nikos Papasarantopoulos
+    - Jeff Z. Pan
+  year: 2023
+
+
+community:
+  type: Article
+  title: "CommunityKG-RAG: Leveraging Community Structures in Knowledge Graphs for Advanced Retrieval-Augmented Generation in Fact-Checking"
+  author:
+    - Rong-Ching Chang
+    - Jiawei Zhang
+  year: 2024
+
+medical:
+  type: Article
+  title: "Medical Graph RAG: Towards Safe Medical Large Language Model via Graph Retrieval-Augmented Generation"
+  author:
+    - Junde Wu
+    - Jiayuan Zhu
+    - Yunli Qi
+  year: 2024
+
+financial-planning:
+  type: Article
+  title: "Optimized Financial Planning: Integrating Individual and Cooperative Budgeting Models with LLM Recommendations"
+  author:
+    - I. de Zarzà 
+    - J. de Curtò 
+    - Gemma Roig 
+    - Carlos T. Calafate
+  year: 2024
+  jounral: AI
+
+data-quality:
+  type: Article
+  title: "Domain Specific Data Quality Framework"
+  author:
+    - Komal Azram Raja
+  year: 2024
+
+scaling-ai-fintech:
+  type: Article
+  title: "Scaling AI adoption in finance: modellingframework and implementation study"
+  author: 
+    - Thomas Sepanosian 
+    - Zoran Milosevic
+    - Andrew Blair
+  year: 2024
