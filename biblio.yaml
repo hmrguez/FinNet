@@ -154,3 +154,23 @@ scaling-ai-fintech:
     - Zoran Milosevic
     - Andrew Blair
   year: 2024
+
+intro-kg:
+  type: Article
+  title: "Towards a Definition of Knowledge Graphs"
+  author:
+    - Lisa Ehrlinger
+    - Wolfram Wöß
+  year: 2016
+  journal: "SEMANTICS 2016: Posters and Demos Track"
+
+
+kg-refinement:
+  type: Article
+  title: "Knowledge Graph Refinement: A Survey of Approaches and Evaluation Methods"
+  author:
+    - Paulheim H.
+  year: 2017
+  journal: "Semantic Web"
+    
+  
