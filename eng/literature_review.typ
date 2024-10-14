@@ -264,4 +264,4 @@ Integrating Graph RAG systems into financial advisory could enhance the personal
 While significant advancements have been made in applying RAG systems and LLMs within the financial sector, there remains a gap in utilizing *Graph RAG* systems specifically for financial planning and advisory services. The potential benefits of Graph RAG, including improved handling of complex financial relationships and enhanced personalization, highlight the need for further research in this area. This thesis aims to address this gap by investigating the integration of Graph RAG systems into financial planning and advisory, exploring their potential to revolutionize the delivery of financial services.
 
 
-#bibliography("biblio.yaml", full: true)
+#bibliography("../biblio.yaml", full: true)
