@@ -1,7 +1,21 @@
-= Literature Review
 
-This literature review will begin by providing an overview of the state of the art technologies, frameworks and methodologies used in RAG applications using a graph kmnowledge base. This will include preprocessing of documents, knowledge graph creation, embedding, retrieval of information from storage and generation using LLMs. Later we will discuss about some relevant studies about RAG applications in non-finance fields, particularly medical applications, because they may be helpful when targetting domain specific usage of the RAG architecture. And at the end we will summarize some studies about using RAG, data quality, etc, for FinTech applications, specially financial planning, which will be the focus of the proposal of this document.
 
+// #set page(
+//   header: align(
+//     right + horizon,
+//   ),
+// )
+
+#align(center, text(17pt)[
+  *Literature Review*
+])
+
+#align(center)[
+  #set par(justify: false)
+   _This literature review will begin by providing an overview of the state of the art technologies, frameworks and methodologies used in RAG applications using a graph kmnowledge base. This will include preprocessing of documents, knowledge graph creation, embedding, retrieval of information from storage and generation using LLMs. Later we will discuss about some relevant studies about RAG applications in non-finance fields, particularly medical applications, because they may be helpful when targetting domain specific usage of the RAG architecture. And at the end we will summarize some studies about using RAG, data quality, etc, for FinTech applications, specially financial planning, which will be the focus of the proposal of this document._
+]
+
+// #show: rest => columns(2, rest)
 
 == _Preprocessing and Data Storage_
 
@@ -32,257 +46,222 @@ Semantic embeddings not only improve retrieval relevance but also enable better 
 Concluding this discussion, *Peng et al. (2024)* further elaborated on how GraphRAG enhances retrieval performance by incorporating semantic embeddings derived from graph structures. This integration allows for a more nuanced understanding of relationships within the data, improving the quality of information retrieval for downstream tasks @survey. Their insights reinforce the critical role of semantic embeddings in advancing the capabilities of RAG systems.
 
 
-== retrieval
+== _Retrieval_
 
-Retrieval is a critical component in Graph Retrieval-Augmented Generation (Graph RAG) systems, determining the relevance and accuracy of the information drawn from the knowledge base for the generation process. Unlike traditional RAG systems that retrieve unstructured text, Graph RAGs leverage the structural properties of graphs, retrieving not just textual information but also relational data embedded within nodes, edges, and subgraphs. This allows for more nuanced responses, which are essential for applications requiring deep contextual understanding and interconnected knowledge. Efficient retrieval methods are essential for ensuring that the system can effectively process large, complex graph structures while maintaining response accuracy and speed. In this section, we explore the key retrieval techniques employed in Graph RAGs, including query processing, optimization strategies, and evaluation metrics.
+Retrieval is a critical component in Graph Retrieval-Augmented Generation (Graph RAG) systems, determining the relevance and accuracy of the information drawn from the knowledge base for the generation process. Unlike traditional RAG systems that retrieve unstructured text, Graph RAGs leverage the structural properties of graphs, retrieving not just textual information but also relational data embedded within nodes, edges, and subgraphs. This allows for more nuanced responses, which are essential for applications requiring deep contextual understanding and interconnected knowledge. Efficient retrieval methods are essential for ensuring that the system can effectively process large, complex graph structures while maintaining response accuracy and speed.
 
-The query processing stage in Graph RAG systems is designed to map a user’s natural language input to relevant graph structures. This involves transforming the input into a query that can be understood by the underlying graph database. Techniques such as graph traversal algorithms, entity linking, and semantic matching are often employed to extract nodes, edges, or subgraphs relevant to the query. The unique structure of graphs allows for retrieval methods that can account for both direct and indirect relationships between entities, thus providing richer context for the generation model.
+The query processing stage in Graph RAG systems is designed to map a user's natural language input to relevant graph structures. This involves transforming the input into a query that can be understood by the underlying graph database. Techniques such as graph traversal algorithms, entity linking, and semantic matching are often employed to extract nodes, edges, or subgraphs relevant to the query. The unique structure of graphs allows for retrieval methods that can account for both direct and indirect relationships between entities, thus providing richer context for the generation model.
 
-He et al. (2024) propose a k-nearest neighbors (k-NN) retrieval approach that identifies relevant nodes and edges by measuring the cosine similarity between the query and the embeddings of graph elements. This method retrieves the top-k most relevant nodes and edges, ensuring that the query is mapped to meaningful graph structures and relationships, providing the system with precise data for subsequent generation tasks @qa-rag. 
+For instance, *He et al. (2024)* propose a k-nearest neighbors (k-NN) retrieval approach that identifies relevant nodes and edges by measuring the cosine similarity between the query and the embeddings of graph elements. This method retrieves the top-k most relevant nodes and edges, ensuring that the query is mapped to meaningful graph structures and relationships, providing the system with precise data for subsequent generation tasks @qa-rag. Similarly, *Hu et al. (2024)* demonstrate how WeKnow leverages structured knowledge from graphs to improve the accuracy and relevance of information retrieved by language models, especially for complex queries requiring relational understanding. They propose a domain-specific RAG model based on a scraping mechanism, making the graph knowledge base the domain from which to scrape relevant information. This approach facilitates the assembly of a larger knowledge base with fewer resources such as memory or compute power @weknow.
 
-Hu et al (2024). demonstrate how WeKnow leverages structured knowledge from graphs to improve the accuracy and relevance of information retrieved by language models, especially for complex queries requiring relational understanding, but they do it in a more insteresting way. They proposed a domain specific RAG model based on a scrapping mechanism, making the graph knowledge base the domains to which to scrap the relevant information, making it easy to assemble a bigger knowledge base with less resources such as memory or compute to store and process data. @weknow
-
-Chang et al. (2024) contribute to improving retrieval processes in fact-checking by integrating knowledge graphs (KGs) with RAG systems. They introduce a community-aware retrieval mechanism that leverages multi-hop pathways within KGs to improve the precision of retrieved information. This enhances the relevance and contextual accuracy of the data retrieved for fact-checking tasks, surpassing traditional retrieval methods. Their system also performs well in zero-shot learning settings, adapting to new queries without additional fine-tuning, making it highly scalable. @community
+In the realm of fact-checking, retrieval processes demand even greater precision and contextual awareness. *Chang et al. (2024)* contribute to improving retrieval processes by integrating knowledge graphs (KGs) with RAG systems. They introduce a community-aware retrieval mechanism that leverages multi-hop pathways within KGs to improve the precision of retrieved information. This enhances the relevance and contextual accuracy of the data retrieved for fact-checking tasks, surpassing traditional retrieval methods. Their system also performs well in zero-shot learning settings, adapting to new queries without additional fine-tuning, making it highly scalable @community.
 
 Due to the potentially large size of graph databases, especially in real-world applications, optimization strategies are necessary to enhance the efficiency of retrieval. Techniques such as graph indexing, approximate nearest neighbor search, and multi-stage retrieval methods are utilized to narrow down the search space and reduce computational overhead. In Graph RAGs, the trade-off between retrieval accuracy and speed is crucial, particularly in applications requiring real-time responses. Hybrid retrieval methods, which combine both parametric (e.g., neural models) and non-parametric techniques, are increasingly popular for balancing performance with scalability.
 
-To optimize retrieval efficiency and ensure only relevant information is passed through, He et al. (2024) introduce a method that constructs subgraphs based on the Prize-Collecting Steiner Tree (PCST) algorithm. This method assigns relevance scores (or “prizes”) to nodes and edges, constructing a subgraph that maximizes relevance while minimizing retrieval cost. The adaptation of PCST for both nodes and edges allows for efficient subgraph construction that maintains manageable size without sacrificing important relational data @qa-rag.
+To address these challenges, *He et al. (2024)* introduce a method that constructs subgraphs based on the Prize-Collecting Steiner Tree (PCST) algorithm. This method assigns relevance scores (or "prizes") to nodes and edges, constructing a subgraph that maximizes relevance while minimizing retrieval cost. The adaptation of PCST for both nodes and edges allows for efficient subgraph construction that maintains manageable size without sacrificing important relational data @qa-rag. This strategy is particularly effective in ensuring that only pertinent information is retrieved, reducing noise and computational load.
 
-One of the limitations of graph RAG systems is what is called multi-hop reasoning, which means arriving to answers that require several steps of reasoning in the knowledge graph to get there. Fang et al. (2024) @trace proposes a solution to this problem, via the creation of ground based reasoning chains, which are chains of nodes and edges that are used to construct a response to a query, basically, constructing a chain of thought where given any point in the chain you can move forward and the last node is the answer to the query.
+One of the limitations of Graph RAG systems is multi-hop reasoning, which involves arriving at answers that require several steps of inference within the knowledge graph. *Fang et al. (2024)* propose a solution to this problem by creating ground-based reasoning chains—chains of nodes and edges used to construct a response to a query. Essentially, they build a chain of thought where, given any point in the chain, one can move forward, with the last node being the answer to the query @trace. This method enhances the system's ability to handle complex queries that require understanding multiple relationships.
 
-Cui et al. (2024) contribute to improving retrieval in Retrieval-Augmented Generation (RAG) systems by proposing the Bailicai framework. They highlight the importance of refining retrieval processes to reduce noise from irrelevant documents and optimizing the timing of retrieval in large language models (LLMs). By utilizing adaptive strategies, such as self-knowledge boundary identification, Bailicai ensures that retrieval is only invoked when necessary, improving efficiency. This approach addresses the challenge of document noise and improves accuracy in medical retrieval tasks, contributing significantly to the integration of external knowledge in LLMs. @bailicai
+In specialized domains like medicine, the need for precise and efficient retrieval is even more pronounced. *Cui et al. (2024)* contribute to improving retrieval in RAG systems by proposing the Bailicai framework. They highlight the importance of refining retrieval processes to reduce noise from irrelevant documents and optimizing the timing of retrieval in large language models (LLMs). By utilizing adaptive strategies, such as self-knowledge boundary identification, Bailicai ensures that retrieval is only invoked when necessary, improving efficiency. This approach addresses the challenge of document noise and improves accuracy in medical retrieval tasks, significantly enhancing the integration of external knowledge in LLMs @bailicai.
 
+Similarly, *Jin et al. (2024)* make significant contributions to retrieval in RAG systems by introducing the RAGCache framework. They focus on optimizing retrieval processes by caching intermediate knowledge states, effectively reducing redundant computations. By leveraging multilevel dynamic caching strategies, RAGCache enhances retrieval efficiency, especially for high-frequency document requests, which are cached to minimize retrieval latency. The study also discusses the performance bottlenecks of retrieval steps in RAG and how caching intermediate results can drastically cut down on retrieval and computational costs @ragcache.
 
-Jin et al. (2024) make significant contributions to retrieval in RAG systems by introducing the RAGCache framework. They focus on optimizing retrieval processes by caching intermediate knowledge states, effectively reducing redundant computations in RAG systems. By leveraging multilevel dynamic caching strategies, RAGCache enhances retrieval efficiency, especially for high-frequency document requests, which are cached to minimize retrieval latency. The study also discusses the performance bottlenecks of retrieval steps in RAG and how caching intermediate results can drastically cut down on retrieval and computational costs. @ragcache
+In the medical field, *Wu et al. (2024)* introduce a U-retrieve method, which enhances the retrieval efficiency of RAG systems in medical applications. U-retrieve balances global awareness and indexing efficiency by generating summaries at different graph levels and performing top-down matching. This ensures that the system retrieves highly relevant entities and their relationships across multiple layers of medical knowledge. Their method enables precise, evidence-based responses to medical queries, dramatically improving the reliability of retrieval-augmented language models in critical medical scenarios @medical.
 
-Wu et al. (2024) make significant contributions to the retrieval process by introducing a U-retrieve method, which enhances the retrieval efficiency of RAG systems in medical applications. U-retrieve balances global awareness and indexing efficiency by generating summaries at different graph levels and performing top-down matching. This ensures that the system retrieves highly relevant entities and their relationships across multiple layers of medical knowledge. Their method enables precise, evidence-based responses to medical queries, dramatically improving the reliability of retrieval-augmented language models in critical medical scenarios. @medical
-
-
-Graph Neural Networks (GNNs) are a class of neural networks tailored to process graph-structured data by capturing the dependencies between nodes via message-passing mechanisms. GNNs extend traditional neural networks by incorporating the topology of graphs into the learning process, enabling models to learn representations that reflect both the features of individual nodes and their structural context within the graph.
+An essential component that enhances retrieval in Graph RAG systems is the utilization of Graph Neural Networks (GNNs). GNNs are a class of neural networks tailored to process graph-structured data by capturing the dependencies between nodes via message-passing mechanisms. They extend traditional neural networks by incorporating the topology of graphs into the learning process, enabling models to learn representations that reflect both the features of individual nodes and their structural context within the graph.
 
 Several GNN architectures, such as Graph Convolutional Networks (GCNs), Graph Attention Networks (GATs), and Graph Recurrent Neural Networks, are particularly relevant to RAG systems. These architectures differ in how they aggregate and propagate information across the graph. For instance, GATs leverage attention mechanisms to weigh the importance of neighboring nodes, which can enhance the retrieval process in RAGs by focusing on more relevant relationships.
 
-Peng et al. (2024) highlighted the role of GNNs in GraphRAG systems, explaining that GNNs are used to represent graph structures and enhance the retrieval and generation processes. GNN-based retrievers are particularly suited for tasks involving complex relationships in graph-structured data @survey
+*Peng et al. (2024)* highlight the role of GNNs in GraphRAG systems, explaining that GNNs are used to represent graph structures and enhance the retrieval and generation processes. GNN-based retrievers are particularly suited for tasks involving complex relationships in graph-structured data @survey. In practice, GNNs are utilized to encode graph knowledge bases into embeddings that can be integrated with language models. Applications include improving entity recognition, relation extraction, and providing context-aware responses. GNNs enable the system to understand complex interactions within the graph, leading to more accurate retrieval and generation of information in response to user queries.
 
-In Graph RAG systems, GNNs are utilized to encode graph knowledge bases into embeddings that can be integrated with language models. Applications include improving entity recognition, relation extraction, and providing context-aware responses. GNNs enable the system to understand complex interactions within the graph, leading to more accurate retrieval and generation of information in response to user queries.
+For example, *He et al. (2024)* use a Graph Attention Network (GAT) to encode the subgraph response from the retrieval phase using a pooling operation, followed by a multilayer perceptron, and finally using a text embedder to turn the output into textual form. This results in a smaller amount of tokens required to perform a question-answer operation, enhancing efficiency @qa-rag. Similarly, *Fang et al. (2024)* propose the use of a GNN in the retrieval phase of the RAG system to retrieve the top-k relevant triplets (head, edge, tail) in the knowledge graph, improving the system's ability to handle complex queries @trace.
 
-He et al. (2024) uses a GAT to encode the subgraph response from the retrieval phase using a Pooling operation, followed by a multilayer perceptron and finally using a text embedder to turn the output in textual form, yielding is a smaller amount of tokens required to perform a question-answer operation. @qa-rag
+Efficient query processing is critical for the performance of Graph RAG systems. Techniques such as graph traversal algorithms, indexing strategies, and approximate nearest neighbor search are employed to retrieve relevant information swiftly. Optimizing these processes ensures that the retrieval component does not become a bottleneck in the generation pipeline. *Hu et al. (2024)* highlight the importance of efficient graph querying and representation learning, embedding entities and relations into a shared space with the language model to facilitate seamless interaction between structured and unstructured data @grag.
 
-Fang et al. (2024) proposes de use of a GNN in the retrieval phase of the RAG system to retrieve the top k relevant triplets (head, edge, tail) in the knowledge graph. @trace
+Optimization strategies in Graph RAGs focus on reducing latency and computational overhead. Methods include precomputing embeddings, using caching mechanisms, and employing parallel processing. Additionally, pruning irrelevant parts of the graph and leveraging hierarchical structures can improve retrieval efficiency. *Peng et al. (2024)* explore how GraphRAG enhances query processing through techniques like query expansion and decomposition. These methods ensure more precise retrievals by refining the original query with additional context or breaking it down into smaller, more manageable parts @survey.
 
-Efficient query processing is critical for the performance of Graph RAG systems. Techniques such as graph traversal algorithms, indexing strategies, and approximate nearest neighbor search are employed to retrieve relevant information swiftly. Optimizing these processes ensures that the retrieval component does not become a bottleneck in the generation pipeline.
+Building upon these strategies, *Cui et al. (2024)* contribute to query optimization within the context of RAG systems by introducing mechanisms that determine whether a medical query requires external retrieval or can be resolved using internal model knowledge. Their self-knowledge boundary identification module optimizes the retrieval process by avoiding unnecessary external data retrieval, reducing computational time and resource consumption. The combination of this method with task decomposition ensures that each query is handled efficiently, either through internal knowledge or by accessing the relevant external documents. This dynamic and targeted retrieval process offers significant improvements in query processing for medical applications @bailicai.
 
-Hu et al. (2024) highlight the importance of efficient graph querying and representation learning, embedding entities and relations into a shared space with the language model to facilitate seamless interaction between structured and unstructured data. @grag
+*Jin et al. (2024)* introduce several key optimizations for query processing in RAG systems. One of the primary contributions is the development of dynamic speculative pipelining, which overlaps the retrieval and inference stages to minimize query processing time. This technique ensures that as retrieval results are generated, they are immediately used in inference, reducing latency. Additionally, their cache-aware scheduling and a prefix-aware replacement policy ensure that frequently retrieved documents are quickly accessible, improving the overall query performance. This approach is shown to significantly reduce end-to-end query time, offering a scalable solution for systems handling large volumes of complex queries @ragcache.
 
-Optimization strategies in Graph RAGs focus on reducing latency and computational overhead. Methods include precomputing embeddings, using caching mechanisms, and employing parallel processing. Additionally, pruning irrelevant parts of the graph and leveraging hierarchical structures can improve retrieval efficiency.
+Moreover, *Huang et al. (2023)* introduce optimization strategies such as Retriever as Answer Classifier (RAC) and Dense Knowledge Similarity (DKS), which focus on retrieving passages that are knowledge-relevant. This optimization ensures that the system retrieves the most meaningful passages for a given query, improving both retrieval and generation performance. Their work significantly enhances query efficiency by focusing on dense knowledge matching rather than relying solely on token-level matching @richanswerenc.
 
-Peng et al. (2024) explored how GraphRAG enhances query processing through techniques like query expansion and decomposition. These methods ensure more precise retrievals by refining the original query with additional context or breaking it down into smaller, more manageable parts @survey
+In addition, *Chang et al. (2024)* optimize the query process by introducing a hierarchical, community-driven retrieval system within their knowledge graph framework. This approach dynamically selects the most relevant communities and sentences based on their relationship to the query, improving both the speed and accuracy of fact-checking. The zero-shot capability of their system means that query optimization occurs without the need for retraining, making the solution efficient and scalable for various fact-checking and retrieval tasks @community.
 
-Cui et al. (2024) contribute to query optimization within the context of RAG systems by introducing mechanisms that determine whether a medical query requires external retrieval or can be resolved using internal model knowledge. Their self-knowledge boundary identification module optimizes the retrieval process by avoiding unnecessary external data retrieval, reducing computational time and resource consumption. The combination of this method with task decomposition ensures that each query is handled efficiently, either through internal knowledge or by accessing the relevant external documents. This dynamic and targeted retrieval process offers significant improvements in query processing for medical applications. @bailicai
-
-
-Jin et al. (2024) introduce several key optimizations for query processing in RAG systems. One of the primary contributions is the development of dynamic speculative pipelining, which overlaps the retrieval and inference stages to minimize query processing time. This technique ensures that as retrieval results are generated, they are immediately used in inference, reducing latency. Additionally, their cache-aware scheduling and a prefix-aware replacement policy ensure that frequently retrieved documents are quickly accessible, improving the overall query performance. This approach is shown to significantly reduce end-to-end query time, offering a scalable solution for systems handling large volumes of complex queries. @ragcache
-
-Huang et al. (2023) introduce optimization strategies such as RAC and DKS, which focus on retrieving passages that are knowledge-relevant. This optimization ensures that the system retrieves the most meaningful passages for a given query, improving both retrieval and generation performance. Their work significantly enhances query efficiency, particularly by focusing on dense knowledge matching rather than relying solely on token-level matching. @richanswerenc
-
-
-Chang et al. (2024) optimize the query process by introducing a hierarchical, community-driven retrieval system within their knowledge graph framework. This approach dynamically selects the most relevant communities and sentences based on their relationship to the query, improving both the speed and accuracy of fact-checking. The zero-shot capability of their system means that query optimization occurs without the need for re-training, making the solution efficient and scalable for various fact-checking and retrieval tasks. @community
-
-
-Wu et al. (2024) introduce several optimizations to the query process through their U-retrieve mechanism, which involves top-down matching of queries with graph-based structures. This approach minimizes the search space by dynamically indexing and matching queries with relevant graph nodes, enabling faster and more accurate retrieval. Additionally, the use of hierarchical graph structures allows the system to retrieve information at varying levels of detail, ensuring that even complex medical queries are handled efficiently and effectively. @medical
-
-Huang et al. (2023) contribute to the field of retrieval by introducing the concept of Dense Knowledge Similarity (DKS) and Retriever as Answer Classifier (RAC). These components enhance the retrieval process by ensuring that the retrieved passages are not only label-relevant but also knowledge-relevant, which addresses the issue of missing key knowledge-relevant passages in the retrieval process. Their experiments show significant improvements in retrieval metrics such as Recall@1 on the MSMARCO dataset and R-Precision on the KILT-WoW dataset. @richanswerenc
+*Wu et al. (2024)* also introduce several optimizations to the query process through their U-retrieve mechanism, which involves top-down matching of queries with graph-based structures. This approach minimizes the search space by dynamically indexing and matching queries with relevant graph nodes, enabling faster and more accurate retrieval. Additionally, the use of hierarchical graph structures allows the system to retrieve information at varying levels of detail, ensuring that even complex medical queries are handled efficiently and effectively @medical.
 
 Evaluating the performance of retrieval techniques in Graph RAGs involves assessing both the accuracy of the retrieved subgraphs and the efficiency of the retrieval process. Metrics such as precision, recall, and F1-score are commonly used to measure retrieval relevance. Additionally, specific metrics related to graph-based retrieval, such as subgraph quality and path relevance, are considered. Speed metrics, including query latency and retrieval time, are also critical for applications where real-time generation is required. Benchmarking on standard datasets helps ensure that retrieval methods can generalize to various domains while maintaining performance.
 
-== generation
+In conclusion, retrieval in Graph RAG systems is a multifaceted process that benefits from the integration of advanced techniques such as GNNs, optimization strategies, and efficient query processing methods. The collective contributions from various researchers highlight the ongoing advancements in this field, aiming to enhance the accuracy, efficiency, and scalability of retrieval processes. These improvements are essential for the development of sophisticated Graph RAG systems capable of handling complex, real-world applications, such as financial planning and advising services.
 
-The integration of RAGs into NLP tasks enhances language models by providing access to external knowledge during text generation. This approach improves the factual accuracy and relevance of outputs in tasks such as question answering, dialogue systems, and summarization. By retrieving pertinent information from graph knowledge bases, RAGs can fill knowledge gaps inherent in standalone language models.
+== Generation
 
-Semantic parsing involves converting natural language into structured, machine-understandable representations. Graph RAGs contribute to this process by retrieving and incorporating relevant graph structures that reflect the semantic meaning of the input. This integration allows for more precise interpretation of queries and the generation of responses that are aligned with the underlying knowledge base.
+The integration of Retrieval-Augmented Generation (RAG) into Natural Language Processing (NLP) tasks significantly enhances language models by providing access to external knowledge during text generation. This approach improves the factual accuracy and relevance of outputs in tasks such as question answering, dialogue systems, and summarization. By retrieving pertinent information from graph knowledge bases, RAGs can fill knowledge gaps inherent in standalone language models, leading to more informed and contextually appropriate responses.
 
-RAG-based representations enhance NLP models by embedding retrieved knowledge directly into the generation process. This fusion of retrieval and generation enables models to produce outputs that are contextually enriched and factually consistent with the external knowledge base. Techniques such as joint training and attention mechanisms over retrieved content are explored to maximize the synergy between retrieval and generation components.
+In Graph RAG systems, the generation component is responsible for producing natural language outputs that are informed by the retrieved graph data. This involves integrating the structured information from the knowledge graph into the language model's generation process. Techniques such as conditional generation, where the model conditions its output on the retrieved data, are commonly employed. The fusion of retrieval and generation enables models to produce outputs that are contextually enriched and factually consistent with the external knowledge base.
 
-Peng et al. (2024) addressed limitations in traditional NLP models by leveraging graph structures to retrieve relational knowledge. They demonstrated that GraphRAG outperforms conventional RAG systems by incorporating both textual and structural information, enabling more context-aware responses @survey
+Semantic parsing plays a crucial role in this integration by converting natural language into structured, machine-understandable representations. Graph RAGs contribute to this process by retrieving and incorporating relevant graph structures that reflect the semantic meaning of the input. This integration allows for more precise interpretation of queries and the generation of responses that are aligned with the underlying knowledge base. By mapping user inputs to specific entities and relations within the graph, the system can generate outputs that are both semantically accurate and contextually relevant.
 
-== non-finance rag studies
+RAG-based representations enhance NLP models by embedding retrieved knowledge directly into the generation process. Techniques such as joint training and attention mechanisms over retrieved content are explored to maximize the synergy between retrieval and generation components. For instance, attention mechanisms enable the model to focus on the most relevant parts of the retrieved graph data during generation, improving the coherence and relevance of the output. This fusion ensures that the generated responses are not only fluent but also grounded in the external knowledge base.
 
+Moreover, advanced models like Transformer-based architectures are employed in the generation step to handle complex language patterns and dependencies. Pre-trained language models such as GPT-3 and BERT can be fine-tuned to incorporate graph-structured knowledge, enhancing their ability to generate contextually rich and factually accurate text. Tools and libraries like Hugging Face Transformers provide frameworks for integrating retrieval and generation models, facilitating the development of sophisticated Graph RAG systems.
 
-In healthcare, Graph RAGs assist in clinical decision support by retrieving relevant medical knowledge in response to patient data. They enable personalized treatment plans by considering complex relationships between symptoms, diseases, and treatments. This application requires handling sensitive data and ensuring compliance with privacy regulations.
+*Peng et al. (2024)* addressed limitations in traditional NLP models by leveraging graph structures to retrieve relational knowledge. They demonstrated that GraphRAG outperforms conventional RAG systems by incorporating both textual and structural information, enabling more context-aware responses @survey. Their work highlights the importance of integrating graph-based retrieval with advanced generation techniques to enhance the overall performance of language models.
 
-Cui et al. (2024) demonstrate that the Bailicai framework enhances the performance of LLMs in medical tasks. By integrating medical knowledge injection and self-knowledge boundary identification, the framework effectively mitigates hallucinations, a common issue in medical text generation. Bailicai surpasses proprietary models like GPT-3.5 and achieves state-of-the-art performance across several medical benchmarks. The researchers focus on curating datasets from the UltraMedical dataset and ensuring that the model learns from high-quality medical data. The framework’s ability to handle medical question-answering tasks with precision makes it a significant advancement in medical AI applications. @bailicai
+In addition to these approaches, graph-to-text generation techniques are employed to translate structured graph data into natural language. This involves using models that can interpret the nodes and edges of a graph and generate coherent textual descriptions or explanations. Graph Neural Networks (GNNs) play a significant role in this process by encoding graph structures into embeddings that capture both semantic and relational information. These embeddings are then used by sequence-to-sequence models to generate the final textual output [1], to enhance modeling capabilities for graph data, thereby improving performance on downstream tasks such as node classification, edge prediction, graph classification, and others.
 
-Wu et al. (2024) propose a graph-based Retrieval-Augmented Generation (RAG) framework specifically designed for medical applications, called MedGraphRAG. This framework constructs a hierarchical graph from medical documents, medical textbooks, and authoritative medical dictionaries, significantly enhancing the capability of Large Language Models (LLMs) to process and retrieve medical information. By employing a graph-based structure, the system is able to preserve complex relationships between medical entities, providing superior retrieval accuracy compared to flat databases or simple key-value retrieval systems. The hierarchical nature of the graph allows for more precise linking and retrieval, ensuring that the generated responses are evidence-based and contextually accurate. @medical
+Evaluation of the generation component in Graph RAG systems is crucial to ensure the quality and reliability of the responses. Metrics such as BLEU, ROUGE, and METEOR scores are commonly used to assess the fluency and relevance of generated text. Additionally, specialized evaluation methods are employed to measure factual accuracy and consistency with the knowledge graph, ensuring that the generated content accurately reflects the underlying data [1].
 
-The primary focus of Wu et al. (2024) is on enhancing LLM performance in the medical domain. Their MedGraphRAG system addresses the specific needs of medical professionals by ensuring that generated responses are backed by evidence from credible medical sources, such as textbooks and peer-reviewed papers. The hierarchical graph structure they employ links user-provided documents with established medical knowledge, ensuring transparency and interpretability in medical diagnoses and recommendations. MedGraphRAG’s performance on multiple medical Q&A benchmarks, including PubMedQA, MedMCQA, and USMLE, demonstrates its effectiveness, surpassing even fine-tuned models in generating accurate, evidence-based medical information. @medical
+The generation step also involves handling challenges such as controlling the level of detail and managing ambiguities in the retrieved data. Techniques like controlled generation and response refinement are explored to allow the system to adjust the specificity of the output based on the user's needs. This is particularly important in applications like financial planning or advising services, where precise and accurate information is paramount.
 
+In summary, the generation component of Graph RAG systems is a critical aspect that determines the effectiveness of the overall system. By integrating advanced generation techniques with retrieved graph knowledge, Graph RAGs can produce responses that are not only contextually relevant but also factually accurate. Ongoing research continues to explore new methods and tools to further enhance the generation capabilities of these systems, expanding their applicability across various NLP tasks.
 
-Graph RAGs enhance social network analysis by generating insights based on the structure and dynamics of social interactions. They can identify influential nodes, detect communities, and predict relationship evolution. This information is valuable for marketing strategies, trend analysis, and understanding social phenomena.
+== _Non-Financial RAG Applications and Studies_
 
-In GIS, Graph RAGs facilitate the retrieval of spatial and relational data for applications like route planning, resource management, and environmental monitoring. By integrating various geospatial datasets, RAG systems can generate comprehensive analyses and support decision-making processes that consider multiple geographic factors.
+Graph Retrieval-Augmented Generation (Graph RAG) systems have found significant applications beyond the financial domain, particularly in fields that require the integration of complex, structured knowledge. One prominent area is healthcare, where Graph RAGs assist in clinical decision support by retrieving relevant medical knowledge in response to patient data. They enable personalized treatment plans by considering complex relationships between symptoms, diseases, and treatments. This application requires handling sensitive data and ensuring compliance with privacy regulations.
 
-The work of He et al. (2024) represents a significant advance in the world of domain specific applications using the RAG architecture. By creating a framework of questions and answers for a graph RAG system, it paves the path for more structured and less hallucination-proned domain specific chatbots. @richanswerenc
+*Cui et al. (2024)* demonstrate that the Bailicai framework enhances the performance of Large Language Models (LLMs) in medical tasks. By integrating medical knowledge injection and self-knowledge boundary identification, the framework effectively mitigates hallucinations, a common issue in medical text generation. Bailicai surpasses proprietary models like GPT-3.5 and achieves state-of-the-art performance across several medical benchmarks. The researchers focus on curating datasets from the UltraMedical dataset, ensuring that the model learns from high-quality medical data. The framework's ability to handle medical question-answering tasks with precision makes it a significant advancement in medical AI applications @bailicai.
 
-== finance rag studies
+Building upon these advancements, *Wu et al. (2024)* propose a graph-based Retrieval-Augmented Generation framework specifically designed for medical applications, called MedGraphRAG. This framework constructs a hierarchical graph from medical documents, textbooks, and authoritative medical dictionaries, significantly enhancing the capability of LLMs to process and retrieve medical information. By employing a graph-based structure, the system preserves complex relationships between medical entities, providing superior retrieval accuracy compared to flat databases or simple key-value retrieval systems. The hierarchical nature of the graph allows for more precise linking and retrieval, ensuring that the generated responses are evidence-based and contextually accurate @medical.
 
-=== Summary of "Domain Specific Data Quality Framework" by Komal Azram Raja (2024)
+The primary focus of Wu et al.'s work is on enhancing LLM performance in the medical domain. Their MedGraphRAG system addresses the specific needs of medical professionals by ensuring that generated responses are backed by evidence from credible medical sources, such as textbooks and peer-reviewed papers. The hierarchical graph structure links user-provided documents with established medical knowledge, ensuring transparency and interpretability in medical diagnoses and recommendations. MedGraphRAG's performance on multiple medical Q&A benchmarks, including PubMedQA, MedMCQA, and USMLE, demonstrates its effectiveness, surpassing even fine-tuned models in generating accurate, evidence-based medical information @medical.
 
-==== Overview  
-The thesis develops a *Retrieval-Augmented Generation (RAG)* framework to improve *data quality management* in the financial sector, focusing on *contextual data validation* @data-quality. Financial data poses unique challenges due to regulatory, security, and consistency requirements. The study emphasizes the need for *domain-specific models* to address these issues, as traditional tools often lack the necessary *context awareness* . @data-quality
+Beyond healthcare, Graph RAGs enhance *social network analysis* by generating insights based on the structure and dynamics of social interactions. They can identify influential nodes, detect communities, and predict relationship evolution. This information is valuable for marketing strategies, trend analysis, and understanding social phenomena. By analyzing complex social graphs, organizations can leverage Graph RAGs to make data-driven decisions in rapidly changing social environments.
 
-==== Methods and Implementation  
-The framework leverages *Large Language Models (LLMs)* with *knowledge graphs* to improve the accuracy of data quality processes @data-quality. Key technologies include *Hugging Face embeddings* and *Llama 2* models for query processing. Several advanced techniques were employed for data collection, preprocessing, and building the architecture:  
+In the field of *Geographic Information Systems (GIS)*, Graph RAGs facilitate the retrieval of spatial and relational data for applications like route planning, resource management, and environmental monitoring. By integrating various geospatial datasets, RAG systems can generate comprehensive analyses and support decision-making processes that consider multiple geographic factors. The graph-based approach allows for modeling intricate spatial relationships and dependencies, improving the accuracy and usefulness of generated insights in GIS applications.
 
-1. *Web Scraping for Data Collection*  
-   - *Scrapy* and *BeautifulSoup* were used to extract relevant financial content, focusing on *publicly available financial blogs and articles* .  
-   - The collected data was cleaned, removing unnecessary HTML tags, and structured into *PDF documents* for further analysis.
+The versatility of Graph RAGs is further demonstrated in domain-specific applications that require structured and reliable information retrieval. *He et al. (2024)* represent a significant advance in this area by creating a framework of questions and answers for a Graph RAG system. By paving the path for more structured and less hallucination-prone domain-specific chatbots, their work addresses common challenges in chatbot applications, such as maintaining context and ensuring factual accuracy of responses @qa-rag.
 
-2. *Embeddings and Model Architecture*  
-   - *Hugging Face’s all-mpnet-base-v2* was used to generate *sentence embeddings*, mapping text into a *768-dimensional space* for better semantic understanding.  
-   - The RAG framework employs a *vector index store* for faster query retrieval and more accurate contextualization.  
-
-3. *System Architecture and Configuration*  
-   - The system integrates *Llama 2* with pre-trained models consisting of *7 billion parameters* for improved response quality.  
-   - A *query engine* leverages the indexed vector store to provide *context-aware answers* to financial data-related queries.  
-
-==== Evaluation Using Financial Data  
-The framework was tested with *three use cases* relevant to financial data quality:  
-
-1. *Timeliness Check*  
-   - Query: "How to check if stock data is stale?"  
-   - Result: The framework provided detailed recommendations for evaluating stale stock data, going beyond traditional *timestamp checks* (Atlan, n.d.).  
-
-2. *Completeness Check*  
-   - Query: "What strategies should we use if customer income data is missing?"  
-   - Result: The framework suggested context-aware strategies such as *regression imputation* and explained the consequences of various imputation techniques (Finance Train, n.d.).  
-
-3. *Consistency Check*  
-   - Query: "Are these symbols (\$, €, &&, ߾) valid currencies?"
-   - Result: It recommended *ISO-based currency validation*, outperforming regex-based methods used by *SQL Server DQS* (Microsoft, n.d.).  
-
-These results demonstrate that the *RAG-based approach provides actionable insights* not achievable with standard data quality tools @data-quality.
-
-==== Results and Analysis  
-The responses were evaluated using the *RAGAS framework* (Doe, Smith, & Turing, 2023). While the RAG model showed high *answer relevancy and recall*, it could benefit from improving *context precision* and *faithfulness*. The absence of *harmful content* confirms the framework’s safety and reliability @data-quality.  
-
-Comparison with existing tools, such as *Talend*, *Informatica*, and *SQL Server*, shows the RAG framework’s ability to provide *context-aware recommendations* @data-quality. For instance, the *RAG model* not only detected missing values but also suggested *root-cause analysis* for financial anomalies.
-
-==== Limitations and Future Enhancements  
-The thesis @data-quality highlights two key challenges :  
-
-1. *Scalability and Performance Constraints*:  
-   - The use of *Google Colab* limited scalability due to *memory constraints* and lack of GPU resources .  
-
-2. *Domain-Specific Knowledge Limitations*:  
-   - Future enhancements include *training the model with real-world datasets* from *Jira logs* and *Notion entries* to improve performance .  
-
-==== Conclusion  
-This research shows that *RAG-based frameworks*, integrated with *knowledge graph databases*, can significantly improve *data validation processes* for the financial industry. By using domain-specific insights, organizations can achieve *better compliance*, *reduced false positives*, and *more accurate data governance* @data-quality. Further developments will focus on deploying *local RAG models* for *real-world testing* to overcome scalability issues.
-
-=== Summary of "Scaling AI Adoption in Finance: Modelling Framework and Implementation Study" by Sepanosian, Milosevic, and Blair (2024)
-
-==== Overview  
-The financial services industry is experiencing a transformation driven by *Artificial Intelligence (AI)*, with applications spanning *fraud detection, algorithmic trading*, and *personalized financial services* @scaling-ai-fintech. This paper presents two key contributions:  
-1. *An industry-oriented framework* to guide scalable AI adoption in financial institutions.
-2. A *proof-of-concept implementation* for retirement planning using *multi-agent systems and RAG (Retrieval-Augmented Generation)* technologies.
-
-The framework and proof-of-concept aim to help financial organizations integrate *advanced AI techniques*, from *basic task automation* to *complex multi-agent systems*. These solutions address both immediate business challenges and future developments, ensuring that financial institutions can remain competitive in an evolving landscape.
-
-==== Methods and Implementation  
-
-1. *Framework for Scalable AI Adoption*  
-   The framework categorizes AI solutions into problem areas such as *information retrieval, data analysis, content generation, decision support, and task automation* @scaling-ai-fintech. The goal is to enable financial institutions to *progress from basic AI capabilities*, such as *customer query handling*, to more advanced applications, such as *personalized financial advice*. Central to the framework is the *RAG technology*, which ensures the use of up-to-date, accurate information without needing constant model retraining.
-
-2. *Multi-Agent System for Retirement Planning*  
-   The proof-of-concept implementation was developed using *crewAI*, a *multi-agent orchestration framework* (João, 2024). Four specialized agents were deployed to address various aspects of retirement planning:
-   - *Retirement Policy Expert*: Provides information on *contribution limits* and *regulations*.
-   - *Industry Expert*: Delivers insights on *investment trends* and *average savings*.
-   - *Advisory Expert*: Aggregates the information and delivers *personalized advice*.
-   - *Quality Assurance (QA) Agent*: Ensures *accuracy* by cross-referencing information and flagging inconsistencies.
-
-   These agents interact sequentially, using *RAG tools and LangChain functionalities* to dynamically retrieve relevant data. Each agent works autonomously within the framework, delegating tasks and providing *contextual insights* for customer inquiries @scaling-ai-fintech. 
-
-==== Results and Findings  
-
-In testing the system with a *fictional client* (John Doe), the agents generated *personalized reports* comparing his retirement savings with industry averages (Figure 5, @scaling-ai-fintech). The agents were able to:
-1. Identify that Doe’s investments were performing *competitively*.
-2. Advise him on potential *additional contributions* to reach his goals.
-3. Provide *regulatory insights* based on recent updates from the Australian Taxation Office.
-
-The agents' collaboration yielded valuable results, but challenges emerged related to *explainability* and *non-deterministic outputs* inherent to LLMs. The *QA agent* often required manual review due to *inconsistent or ambiguous outputs* from the advisory agent.
-
-==== Key Observations  
-
-- *Transparency and Explainability*: LLM-based agents produced *stochastic outputs*, making it difficult to *trace decision paths* or ensure predictable results @scaling-ai-fintech. Solutions may involve *auditing agent behaviors* and *tracking tool usage*.
-- *Security Risks*: Using external tools like *OpenAI’s API* introduced concerns about *data security*. While *local deployment* of agents is feasible, it comes with *high computational costs*.
-- *Scalability Challenges*: Handling complex data types (e.g., tables, images) added *preprocessing overhead*. Redundant API calls reduced performance, especially when agents were not *effectively sharing memory* @scaling-ai-fintech.
-
-==== Limitations and Future Directions  
-
-- *Consistency in Outputs*: Current agent definitions were relatively *generic*, resulting in *inconsistent advice* across different test runs. Future work will refine the agents to *align with specific retirement planning goals* @scaling-ai-fintech.
-- *Integration with Knowledge Graphs*: A promising direction is *integrating knowledge graphs* to enhance the agents’ contextual awareness.
-- *Distributed Multi-Agent Systems*: Future systems may distribute agents across multiple environments, improving *resilience and performance* @scaling-ai-fintech.
-
-==== Conclusion  
-The study demonstrates that *multi-agent systems* powered by *LLMs and RAG* tools offer significant potential for financial services, particularly in *personalized advisory applications*. However, the success of these technologies depends on balancing *performance, transparency, and security*. Financial institutions can leverage these findings to *scale AI adoption* responsibly and *continuously adapt* to new challenges @scaling-ai-fintech.
+In conclusion, Graph RAG systems are making impactful contributions across various non-financial domains. Their ability to integrate complex, structured knowledge into language models enables more accurate, contextually rich, and reliable outputs. Whether in healthcare, social network analysis, GIS, or specialized chatbot development, Graph RAGs provide powerful tools for advancing AI applications and supporting sophisticated decision-making processes.
 
 
-=== Summary of “Optimized Financial Planning: Integrating Individual and Cooperative Budgeting Models with LLM Recommendations” by de Zarzà, de Curtò, Roig, and Calafate (2024)
+== _Finance RAG Applications and Studies_
 
-==== Overview  
+The financial sector has increasingly adopted Retrieval-Augmented Generation (RAG) systems to enhance various services, including data quality management, customer advisory, and financial planning. These systems leverage Large Language Models (LLMs) and external knowledge bases to improve accuracy, relevance, and personalization. While significant progress has been made, there remains a gap in applying *Graph RAG* systems specifically for financial planning or advisory services. This section reviews existing studies in the domain and highlights the need for further research integrating Graph RAG into financial advisory.
 
-@financial-planning proposes an innovative financial planning framework that combines traditional budgeting models with AI-powered large language models (LLMs) to enhance financial management at both individual and cooperative (household) levels. The core objective is to democratize financial planning by providing personalized recommendations that optimize savings and budgeting through accessible AI tools. 
+*Enhancing Data Quality Management with RAG*
 
-==== Key Methods and Framework
+*Raja (2024)* developed a Retrieval-Augmented Generation framework to improve data quality management in the financial sector, focusing on contextual data validation [@data-quality]. Financial data poses unique challenges due to stringent regulatory, security, and consistency requirements. Traditional tools often lack the necessary context awareness to address these issues effectively. Raja's framework leverages LLMs in conjunction with knowledge graphs to enhance the accuracy of data quality processes.
+
+Key components of the framework include:
+
+1. *Web Scraping for Data Collection*
+   - Utilized tools like *Scrapy* and *BeautifulSoup* to extract relevant financial content from publicly available blogs and articles.
+   - Cleaned and structured the collected data into PDF documents for analysis.
+
+2. *Embeddings and Model Architecture*
+   - Generated sentence embeddings using Hugging Face's *all-mpnet-base-v2*, mapping text into a 768-dimensional space for better semantic understanding.
+   - Employed a vector index store for faster query retrieval and improved contextualization.
+
+3. *System Architecture and Configuration*
+   - Integrated *Llama 2* with pre-trained models consisting of 7 billion parameters to enhance response quality.
+   - Developed a query engine leveraging the indexed vector store to provide context-aware answers to financial data-related queries.
+
+The framework was evaluated using three use cases relevant to financial data quality:
+
+1. *Timeliness Check*
+   - *Query*: "How to check if stock data is stale?"
+   - *Result*: Provided detailed recommendations for evaluating stale stock data, going beyond traditional timestamp checks.
+
+2. *Completeness Check*
+   - *Query*: "What strategies should we use if customer income data is missing?"
+   - *Result*: Suggested context-aware strategies such as regression imputation and explained the consequences of various imputation techniques.
+
+3. *Consistency Check*
+   - *Query*: "Are these symbols (\$, €, &&, ߾) valid currencies?"
+   - *Result*: Recommended ISO-based currency validation, outperforming regex-based methods used by SQL Server DQS.
+
+The RAG-based approach demonstrated actionable insights not achievable with standard data quality tools, showing high answer relevancy and recall. However, challenges related to scalability due to memory constraints and limitations in domain-specific knowledge were identified. Future enhancements include training the model with real-world datasets from Jira logs and Notion entries to improve performance.
+
+While Raja's study showcases the potential of RAG frameworks in improving data validation processes in finance, it primarily focuses on data quality management rather than financial advisory services.
+
+*Multi-Agent Systems and RAG in Financial Services*
+
+*Sepanosian et al. (2024)* present an industry-oriented framework to guide scalable AI adoption in financial institutions [@scaling-ai-fintech]. Their work includes a proof-of-concept implementation for retirement planning using multi-agent systems and RAG technologies. The framework categorizes AI solutions into problem areas such as information retrieval, data analysis, content generation, decision support, and task automation. Central to the framework is RAG technology, ensuring the use of up-to-date, accurate information without needing constant model retraining.
+
+The proof-of-concept utilizes *crewAI*, a multi-agent orchestration framework, deploying four specialized agents:
+
+1. *Retirement Policy Expert*
+   - Provides information on contribution limits and regulations.
+
+2. *Industry Expert*
+   - Delivers insights on investment trends and average savings.
+
+3. *Advisory Expert*
+   - Aggregates information and delivers personalized advice.
+
+4. *Quality Assurance (QA) Agent*
+   - Ensures accuracy by cross-referencing information and flagging inconsistencies.
+
+These agents interact sequentially, using RAG tools and LangChain functionalities to dynamically retrieve relevant data. Testing with a fictional client demonstrated the agents' ability to generate personalized reports comparing retirement savings with industry averages. The agents identified that the client's investments were performing competitively, advised on potential additional contributions, and provided regulatory insights based on recent updates.
+
+Despite valuable results, challenges emerged related to explainability and non-deterministic outputs inherent to LLMs. The QA agent often required manual review due to inconsistent or ambiguous outputs. Security risks were also noted, particularly when using external tools like OpenAI’s API, introducing concerns about data security. Scalability challenges included preprocessing overhead for complex data types and redundant API calls reducing performance.
+
+Although this study demonstrates the potential of LLMs and RAG tools in personalized financial advisory applications, it does not specifically employ *Graph RAG* systems. The focus remains on multi-agent systems and the use of RAG for information retrieval, without leveraging the structural advantages of graph-based knowledge representation.
+
+*Integrating LLMs with Financial Planning Models*
+
+*De Zarzà et al. (2024)* propose an innovative financial planning framework that combines traditional budgeting models with AI-powered LLMs to enhance financial management at both individual and cooperative (household) levels [@financial-planning]. The core objective is to democratize financial planning by providing personalized recommendations that optimize savings and budgeting through accessible AI tools.
 
 The study focuses on two interconnected financial planning models:
 
-1.	Individual Budget Optimization Model
-   -	The model aims to maximize savings by distributing monthly income efficiently across expense categories (e.g., rent, groceries, and utilities).
-   -	A utility function prioritizes saving while meeting necessary expenses, defined as:
-$ U(I, E) = alpha log(S) - beta sum_(o=1)^n w_o log(E_o) $
-where  I  is income,  S  is savings,  E_o  are categorized expenses, and  w_o  are personalized preference weights.
-   -	The LLM-generated recommendations serve as a guiding baseline to suggest feasible allocations, balancing real-world financial needs with optimization.
-2.	Cooperative Budgeting Model for Households
-   -	Extends the individual model to address shared financial responsibilities among household members, such as rent and grocery costs.
-   -	The cooperative model ensures financial equity among members by considering individual priorities while optimizing the total savings:
-$ "TS" = sum_o=1^n (I_o - sum_z E_"zo") $
-where  TS  is the total household savings,  $I_o$  is each member’s income, and  $E_{"zo"}$  are their respective expenses per category z.
-   -	LLM-informed recommendations offer advice on efficient shared budget planning and propose strategies to minimize redundant expenses (e.g., shared subscriptions).
+1. *Individual Budget Optimization Model*
+   - Aims to maximize savings by distributing monthly income efficiently across expense categories (e.g., rent, groceries, utilities).
+   - A utility function prioritizes saving while meeting necessary expenses, defined as:
 
-==== Financial Planning with LLMs
+     $ U(I, E) = alpha log(S) - beta sum_(o=1)^n w_o log(E_o) $
 
-The integration of LLMs offers several advantages ((@financial-planning)):
+     where  $I$ income,  $S$ savings,  $E$ are categorized expenses, and  $w$ are personalized preference weights.
 
--	Personalization: Tailors recommendations based on individual and household-specific data.
--	Dynamic Adaptability: Adjusts recommendations to reflect economic trends and evolving financial goals.
--	Enhanced Savings Strategies: Includes advice on building emergency funds, retirement savings, and managing short-term vs. long-term priorities.
--	Consumption Smoothing: Uses cooperative game theory principles to maintain consistent living standards over time, ensuring long-term financial stability.
+   - LLM-generated recommendations serve as a guiding baseline to suggest feasible allocations.
 
-==== Financial Planning Case Studies
+2. *Cooperative Budgeting Model for Households*
+   - Extends the individual model to address shared financial responsibilities among household members.
+   - The cooperative model ensures financial equity by considering individual priorities while optimizing total savings:
 
-@financial-planning evaluates scenarios using both individual and cooperative models, guided by LLM recommendations. Key insights include:
+     $ "TS" = sum_o=1^n (I_o - sum_z E_"zo") $
 
-1.	Short-term Budgeting: The LLM suggests emergency fund allocations and prioritizes debt repayments.
-2.	Retirement Planning: In a household scenario, LLMs guide members to optimize savings, balancing retirement contributions with daily expenses.
-3.	Long-term Financial Goals: A child fund is recommended to accommodate future expenses (e.g., education, healthcare).
+     where  TS is the total household savings,  $I_o$ is each member’s income, and $E_{"zo"}$ are their respective expenses per category  $z$
 
-==== Cooperative Financial Planning within EC Framework
+   - LLM-informed recommendations offer advice on efficient shared budget planning and propose strategies to minimize redundant expenses.
 
-The extended coevolutionary (EC) theory is employed to model the interaction of financial agents (individuals or households) as an adaptive system. Agents iteratively adjust their spending based on LLM recommendations and their financial environment. For example, given an agent $o$ and a time $t$:
+The integration of LLMs offers several advantages:
+
+- *Personalization*: Tailors recommendations based on individual and household-specific data.
+- *Dynamic Adaptability*: Adjusts recommendations to reflect economic trends and evolving financial goals.
+- *Enhanced Savings Strategies*: Includes advice on building emergency funds, retirement savings, and managing short-term vs. long-term priorities.
+- *Consumption Smoothing*: Uses cooperative game theory principles to maintain consistent living standards over time.
+
+The study evaluates scenarios using both individual and cooperative models, guided by LLM recommendations. Key insights include:
+
+1. *Short-term Budgeting*
+   - LLM suggests emergency fund allocations and prioritizes debt repayments.
+
+2. *Retirement Planning*
+   - In a household scenario, LLMs guide members to optimize savings, balancing retirement contributions with daily expenses.
+
+3. *Long-term Financial Goals*
+   - Recommends setting up a child fund to accommodate future expenses like education and healthcare.
+
+To model the interaction of financial agents as an adaptive system, the extended coevolutionary (EC) theory is employed. Agents iteratively adjust their spending based on LLM recommendations and their financial environment. For an agent $o$ at time $t$:
+
  $ E_o (t + 1) = (1 - beta)(E_(o)(t) + alpha nabla U_o (E_o(t), E_(-o)(t))) + beta R_(o,t) $
-where  $R_(o,t)$  is the LLM recommendation and  $alpha$  and  $beta$  control learning and LLM influence. (@financial-planning)
 
-This approach ensures resilience in dynamic financial landscapes by enabling households to collaboratively optimize spending strategies.
+where $R_(o,t)$ is the LLM recommendation, and $alpha$ and $beta$ control learning and LLM influence.
 
-==== Results and Evaluation
+While the integration of LLMs yields optimized budget plans that align with best practices in personal finance, human oversight is essential to validate LLM suggestions and avoid potential errors. Similar to the previous studies, this research does not incorporate *Graph RAG* systems. The recommendations are generated by LLMs without the explicit use of graph-structured knowledge bases, potentially limiting the system's ability to capture complex financial relationships.
 
-@financial-planning demonstrates that LLM-generated financial recommendations yield optimized budget plans that are economically sound and align with best practices in personal finance. However, human oversight is still essential to validate LLM suggestions and avoid potential errors. The combination of LLM insights with traditional optimization models shows significant improvements in:
+*The Need for Graph RAG in Financial Planning and Advisory*
 
--	Savings rates
--	Cooperative financial management
--	Adaptability to changing income and expenses
+The reviewed studies illustrate the growing interest in applying RAG systems and LLMs within the financial sector, including data quality management, retirement planning, and budgeting. However, none of the studies specifically explore the use of *Graph RAG* systems for financial planning or advisory services.
 
+Graph RAG systems leverage the structural properties of graphs to represent complex relationships and dependencies inherent in financial data. By retrieving and incorporating relational data embedded within nodes, edges, and subgraphs, Graph RAGs can provide more nuanced and contextually rich recommendations. This is particularly valuable in financial planning and advisory services, where understanding intricate relationships between financial products, market trends, regulatory requirements, and individual client profiles is crucial.
+
+Integrating Graph RAG systems into financial advisory could enhance the personalization and accuracy of recommendations, enable multi-hop reasoning over financial knowledge graphs, and improve the system's ability to handle complex queries. Additionally, using graph-based knowledge representations can facilitate better compliance with regulatory standards by providing transparent and interpretable insights.
+
+*Conclusion*
+
+While significant advancements have been made in applying RAG systems and LLMs within the financial sector, there remains a gap in utilizing *Graph RAG* systems specifically for financial planning and advisory services. The potential benefits of Graph RAG, including improved handling of complex financial relationships and enhanced personalization, highlight the need for further research in this area. This thesis aims to address this gap by investigating the integration of Graph RAG systems into financial planning and advisory, exploring their potential to revolutionize the delivery of financial services.
 
 
 #bibliography("biblio.yaml", full: true)
