@@ -9,7 +9,7 @@
 
 // #show: rest => columns(2, rest) A formula is not showing correctly on 2 columns
 
-== _Preprocesamiento y Almacenamiento de Datos_
+== _**Preprocesamiento y Almacenamiento de Datos_
 
 Las bases de datos de grafos han emergido como sistemas especializados diseñados para almacenar y gestionar datos en formatos de grafo, enfatizando las relaciones entre los puntos de datos. Tecnologías como Neo4j, Amazon Neptune y ArangoDB ofrecen soluciones escalables para manejar estructuras de grafos complejas. Estas bases de datos permiten consultas y recorridos eficientes de las relaciones, lo que las hace ideales para aplicaciones que requieren una recuperación y manipulación de datos interconectados de alto rendimiento, lo cual es fundamental para los sistemas Graph RAG.
 
@@ -167,6 +167,7 @@ El marco fue evaluado utilizando tres casos de uso relevantes para la calidad de
 
 3. *_Verificación de Consistencia_*
    - *_Consulta_*: "¿Son válidos estos símbolos (\$, €, &&, ߾) como monedas?"
+
    - *_Resultado_*: Recomendó la validación de monedas basada en ISO, superando a los métodos basados en regex utilizados por SQL Server DQS.
 
 El enfoque basado en RAG demostró proporcionar insights accionables no alcanzables con las herramientas estándar de calidad de datos, mostrando alta relevancia y recall en las respuestas. Sin embargo, se identificaron desafíos relacionados con la escalabilidad debido a restricciones de memoria y limitaciones en el conocimiento específico del dominio. Las mejoras futuras incluyen el entrenamiento del modelo con conjuntos de datos del mundo real provenientes de registros de Jira y entradas de Notion para mejorar el rendimiento.
