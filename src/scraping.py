@@ -5,10 +5,12 @@ from neo4j import GraphDatabase
 import google.generativeai as genai
 import re
 
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+from src.constants import BATCH_1_URLS
 
 # Placeholder for Gemini API key
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
+
+genai.configure(api_key=GEMINI_API_KEY)
 
 
 def scrape_article(url):
@@ -105,28 +107,28 @@ def main(urls):
     all_relationships = []
 
     for idx, url in enumerate(urls):
-        print(f"Processing article {idx + 1}/{len(urls)}: {url}")
+        # print(f"Processing article {idx + 1}/{len(urls)}: {url}")
+        #
+        # # Step 1: Scrape the article
+        # print("Scraping the article...")
+        # text = scrape_article(url)
+        #
+        # # Step 2: Write the text to a file
+        # print("Writing the article text to file...")
+        # with open(f"data/scrapped/article_text_{idx + 1}.txt", "w") as file:
+        #     file.write(text)
+        #
+        # # Step 3: Summarize the text using the Gemini API
+        # print("Summarizing the article...")
+        # summary = summarize_text_with_gemini(text, all_entities)
+        #
+        # # Write the summary to a file
+        # print("Writing the summary to file...")
+        # with open(f"data/gemini-raw/article_summary_{idx + 1}.txt", "w") as file:
+        #     file.write(summary)
 
-        # Step 1: Scrape the article
-        print("Scraping the article...")
-        text = scrape_article(url)
-
-        # Step 2: Write the text to a file
-        print("Writing the article text to file...")
-        with open(f"article_text_{idx + 1}.txt", "w") as file:
-            file.write(text)
-
-        # Step 3: Summarize the text using the Gemini API
-        print("Summarizing the article...")
-        summary = summarize_text_with_gemini(text, all_entities)
-
-        # Write the summary to a file
-        print("Writing the summary to file...")
-        with open(f"article_summary_{idx + 1}.txt", "w") as file:
-            file.write(summary)
-
-        # with open(f"article_summary_{idx + 1}.txt", "r") as file:
-        #     summary = file.read()
+        with open(f"data/gemini-raw/article_summary_{idx + 1}.txt", "r") as file:
+            summary = file.read()
 
         # Step 4: Parse the JSON output to get entities and relationships
         print("Parsing the Gemini output...")
@@ -149,25 +151,5 @@ def main(urls):
 
 
 if __name__ == '__main__':
-    article_urls = [
-        "https://www.investopedia.com/guide-to-financial-literacy-4800530",
-        "https://www.investopedia.com/personal-finance/consumer-credit-report/",
-        "https://www.investopedia.com/ask/answers/050415/what-are-differences-between-debit-cards-and-credit-cards.asp",
-        "https://www.investopedia.com/buy-now-pay-later-vs-credit-cards-5188052",
-        "https://www.investopedia.com/personal-finance/digging-out-of-debt/",
-        "https://www.investopedia.com/terms/s/student-debt.asp",
-        "https://www.investopedia.com/pros-and-cons-of-debt-management-plans-5113946",
-        "https://www.investopedia.com/back-taxes-5119851",
-        "https://www.investopedia.com/what-you-should-know-about-debt-relief-5193868",
-        "https://www.investopedia.com/should-you-save-your-money-or-invest-it-depends-4692975",
-        "https://www.investopedia.com/how-to-save-money-4589942",
-        "https://www.investopedia.com/ask/answers/042315/what-difference-between-compounding-interest-and-simple-interest.asp",
-        "https://www.investopedia.com/generational-wealth-definition-5189580",
-        "https://www.investopedia.com/10-investing-concepts-beginners-need-to-learn-5219500",
-        "https://www.investopedia.com/articles/younginvestors/07/shoestring_budget.asp",
-        "https://www.investopedia.com/tech/what-you-must-know-investing-crypto/",
-        "https://www.investopedia.com/terms/d/digital-wallet.asp",
-        "https://www.investopedia.com/articles/personal-finance/010215/apple-pay-vs-google-wallet-how-they-work.asp",
-        "https://www.investopedia.com/what-can-you-buy-with-bitcoin-5179592"
-    ]
+    article_urls = BATCH_1_URLS
     main(article_urls)
