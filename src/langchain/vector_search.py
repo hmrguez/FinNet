@@ -66,3 +66,17 @@ def vector_search(query, collection_name, top_k=5):
 
     # Return the results
     return list(zip(top_k_ids, top_k_scores))
+
+
+def search_nodes(query, top_k=5):
+    return vector_search(query, MONGODB_COLLECTION_NODES, top_k)
+
+
+def search_edges(query, top_k=5):
+    return vector_search(query, MONGODB_COLLECTION_EDGES, top_k)
+
+
+def search_graph(query, top_k=5):
+    nodes = search_nodes(query, top_k)
+    edges = search_edges(query, top_k)
+    return nodes, edges

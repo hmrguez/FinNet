@@ -14,11 +14,8 @@ genai.configure(api_key=GEMINI_API_KEY)
 
 
 class AnswerGenerator(nn.Module):
-    def __init__(self, graph_encoder, projection_layer, text_embedder, gemini_model_name, expert):
+    def __init__(self, gemini_model_name, expert):
         super(AnswerGenerator, self).__init__()
-        self.graph_encoder = graph_encoder
-        self.projection_layer = projection_layer
-        self.text_embedder = text_embedder
         self.gemini_model = genai.GenerativeModel(gemini_model_name)
         self.expert = expert
 
@@ -32,7 +29,7 @@ class AnswerGenerator(nn.Module):
         return response.text
 
     def textualize(self, subgraph):
-        node_texts = [f"Node(id={node.id}, properties={node})" for node in subgraph['nodes']]
+        node_texts = [str(node) for node in subgraph['nodes']]
         edge_texts = [str(edge) for edge in subgraph['edges']]
         return " ".join(node_texts + edge_texts)
 
