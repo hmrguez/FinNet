@@ -93,7 +93,7 @@ class AnswerGenerator(nn.Module):
 
         textualized_graph = self.textualize(subgraph)
         combined_input = f"{textualized_graph} {query}"
-        ht = self.text_embedder(combined_input)
+        # ht = self.text_embedder(combined_input)
 
         response = self.gemini_model.generate_content(
             f"Generate an answer based on the following input: {combined_input}"

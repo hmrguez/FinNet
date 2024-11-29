@@ -35,19 +35,16 @@ def extract_and_embed():
     with driver.session() as session:
         # Extract nodes
         print("Extracting nodes...")
-        nodes = session.run("MATCH (n) RETURN id(n) as id, n.name as name")
+        nodes = session.run("MATCH (n) RETURN n.id as id")
         for record in nodes:
+            print(record)
             node_id = record["id"]
-            name = record["name"]
-            if name:
-                embedding = model.encode(name)
-                doc = {
-                    "id": node_id,
-                    "embedding": embedding.tolist()
-                }
-                mongo_collection_nodes.insert_one(doc)
-            else:
-                print(f"Node {node_id} does not have a 'name' property.")
+            embedding = model.encode(node_id)
+            doc = {
+                "id": node_id,
+                "embedding": embedding.tolist()
+            }
+            mongo_collection_nodes.insert_one(doc)
 
         # Extract edges
         print("Extracting edges...")

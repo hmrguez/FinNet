@@ -47,7 +47,7 @@ if __name__ == "__main__":
         'edges': edges
     }
 
-    query = "What is an ETF?"
+    query = "What can I do for a low-cost investment?"  # Replace with your query
 
     # Generate the answer
     answer_generator = AnswerGenerator.instance()
