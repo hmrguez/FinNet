@@ -1,5 +1,5 @@
 from typing import List
-from expert_agent import ExpertAgent
+from src.langchain.expert_agent import ExpertAgent
 
 
 class AgentOrchestrator:
@@ -12,7 +12,7 @@ class AgentOrchestrator:
         self.responses = [agent.expert_field + "expert: \n" + agent(query) for agent in self.agents]
 
     def generate_combined_answer(self, query: str) -> str:
-        from generation import AnswerGenerator
+        from src.langchain.generation import AnswerGenerator
         combined_input = " ".join(self.responses) + "\nQuery: " + query
         combined_expert = AnswerGenerator.instance("finance")
         return combined_expert({"nodes": [], "edges": []}, combined_input, orchestrator=True)

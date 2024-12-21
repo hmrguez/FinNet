@@ -1,0 +1,22 @@
+[
+    {
+        "query": "How are investors related with EFT?",
+        "result": "Investors utilize ETFs as core components of their investment strategies, leveraging their key advantages:  diversification across asset classes (stocks, bonds, commodities), reducing risk, especially for those with limited capital; low costs compared to actively managed funds, maximizing long-term returns;  liquidity, allowing intraday trading; transparency in holdings; and accessibility through most brokerage accounts.  However,  ETFs are subject to market risks tied to their underlying assets, requiring investors to carefully consider their goals, risk tolerance, and time horizon. Financial planners frequently incorporate ETFs into holistic investment strategies, tailoring asset allocation to individual client needs and risk profiles.  The relationship between investors and ETFs is fundamentally one of supply and demand, with high investor demand driving ETF market growth.\n",
+        "expected_answer": "Investors are related to ETFs as they can invest in them to diversify their portfolios.",
+        "time_spent": 20.673197984695435,
+        "bleu_score": 2.3342950820756677e-155,
+        "rouge_scores": {
+            "rouge1": [
+                0.07692307692307693,
+                0.6,
+                0.13636363636363635
+            ],
+            "rougeL": [
+                0.05982905982905983,
+                0.4666666666666667,
+                0.10606060606060606
+            ]
+        },
+        "gemini_score": "```json\n{\n  \"rating\": 4\n}\n```\n"
+    }
+]

@@ -7,16 +7,16 @@ class ExpertAgent:
         self.answer = None
 
     def search_graph(self):
-        from vector_search import search_graph
+        from src.langchain.vector_search import search_graph
         self.nodes, self.edges = search_graph(self.query)
 
     def create_subgraph(self):
-        from subgraph import SubgraphCreator
+        from src.langchain.subgraph import SubgraphCreator
         subgraph_creator = SubgraphCreator()
         self.subgraph_data = subgraph_creator.get_subgraph(self.nodes, self.edges)
 
     def generate_answer(self):
-        from generation import AnswerGenerator
+        from src.langchain.generation import AnswerGenerator
         financial_expert = AnswerGenerator.instance(self.expert_field)
         self.answer = financial_expert(self.subgraph_data, self.query)
 

@@ -24,7 +24,7 @@ class AnswerGenerator(nn.Module):
         combined_input = f"{textualized_graph} {query}"
 
         if orchestrator:
-            prompt = f"These are the answers from several experts regarding this query: {query}. You are a finance expert. Formulate a well-defined answer by combining all these expert answers: {combined_input}"
+            prompt = f"These are the answers from several experts regarding this query: {query}. You are a finance expert. Formulate a well-defined and concise answer (no introduction) by combining all these expert answers: {combined_input}"
         else:
             prompt = f"You are an expert in the field of {self.expert}. Generate an answer with your point of view based on the following input: {combined_input}"
 
