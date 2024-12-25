@@ -1,2 +1,5 @@
 .env
 src/data
+src/tests/results_rag.json
+src/tests/results_gemini_2.0.json
+src/tests/results_rag_text.json

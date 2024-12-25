@@ -4,6 +4,8 @@ from nltk.tokenize import word_tokenize
 from sentence_transformers import SentenceTransformer
 import numpy as np
 from pymongo import MongoClient
+import os
+
 
 # Download NLTK data (if not already downloaded)
 nltk.download('punkt')
@@ -14,6 +16,7 @@ MONGODB_URI = "mongodb://localhost:27017/"
 MONGODB_DB = "thesis"
 MONGODB_COLLECTION_NODES = "gemini-graph-embedding-nodes"
 MONGODB_COLLECTION_EDGES = "gemini-graph-embedding-edges"
+MONGODB_COLLECTION_TEXTS = "gemini-text-embedding"
 
 # Load the SentenceTransformer model
 model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
@@ -68,6 +71,34 @@ def vector_search(query, collection_name, top_k=5):
     return list(zip(top_k_ids, top_k_scores))
 
 
+
+
+def get_texts_by_ids(ids):
+    # Connect to MongoDB
+    client = MongoClient(MONGODB_URI)
+    db = client[MONGODB_DB]
+    collection = db[MONGODB_COLLECTION_TEXTS]
+
+    # Query the collection for documents matching the given IDs
+    cursor = collection.find({"id": {"$in": ids}}, {"filename": 1, "_id": 0})
+
+    # Extract the filename property from the matching documents
+    filenames = [doc['filename'] for doc in cursor]
+
+    # Read the text from the files
+    texts = []
+    for filename in filenames:
+        filepath = os.path.join('../data/scrapped', filename)
+        with open(filepath, 'r') as file:
+            texts.append(file.read())
+
+    # Close the connection
+    client.close()
+
+    # Return the array of text properties
+    return texts
+
+
 def search_nodes(query, top_k=5):
     return vector_search(query, MONGODB_COLLECTION_NODES, top_k)
 
@@ -76,7 +107,10 @@ def search_edges(query, top_k=5):
     return vector_search(query, MONGODB_COLLECTION_EDGES, top_k)
 
 
-def search_graph(query, top_k=5):
-    nodes = search_nodes(query, top_k)
-    edges = search_edges(query, top_k)
-    return nodes, edges
+def search_graph(query, top_k=5, is_text=False):
+    if is_text:
+        return vector_search(query, MONGODB_COLLECTION_TEXTS, top_k)
+    else:
+        nodes = search_nodes(query, top_k)
+        edges = search_edges(query, top_k)
+        return nodes, edges

@@ -43,3 +43,29 @@ class AnswerGenerator(nn.Module):
             gemini_model_name='gemini-1.5-flash',
             expert=expert
         )
+
+
+class AnswerGeneratorText(nn.Module):
+    def __init__(self, gemini_model_name, expert):
+        super(AnswerGeneratorText, self).__init__()
+        self.gemini_model = genai.GenerativeModel(gemini_model_name)
+        self.expert = expert
+
+    def forward(self, texts: [], query: str, orchestrator: bool = False):
+        combined_input = f"{texts} {query}"
+
+        if orchestrator:
+            prompt = f"These are the answers from several experts regarding this query: {query}. You are a finance expert. Formulate a well-defined and concise answer (no introduction) by combining all these expert answers: {combined_input}"
+        else:
+            prompt = f"You are an expert in the field of {self.expert}. Generate an answer with your point of view based on the following input: {combined_input}"
+
+        response = self.gemini_model.generate_content(prompt)
+
+        return response.text
+
+    @staticmethod
+    def instance(expert):
+        return AnswerGeneratorText(
+            gemini_model_name='gemini-1.5-flash',
+            expert=expert
+        )
