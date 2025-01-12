@@ -106,6 +106,6 @@ The methodology chapter describes the research design and methods employed to bu
 	-	Chapter 4: System Architecture and Implementation
 This chapter provides a detailed description of the system architecture, including the components involved in knowledge extraction, graph construction, retrieval, and natural language generation. The implementation process is also discussed, with specific attention to the tools, frameworks, and databases used to develop the system.
 	-	Chapter 5: Evaluation and Results
-In this chapter, the results of the system’s evaluation are presented. The performance of the chatbot is assessed based on various metrics such as accuracy, factual correctness, efficiency, and robustness. The findings from the evaluation experiments are discussed in detail, and the implications of the results are analyzed.
+In this chapter, the results of the system’s evaluation are presented. The performance of the chatbot is assessed based on various metrics such as accuracy, efficiency, and robustness. The findings from the evaluation experiments are discussed in detail, and the implications of the results are analyzed.
 	-	Chapter 6: Conclusion and Future Work
 The conclusion chapter summarizes the key findings of the research, reflects on the contribution of the work, and discusses its limitations.-It also suggests potential avenues for future research, including improvements to the system and further applications of graph-based RAG approaches in other domains.
