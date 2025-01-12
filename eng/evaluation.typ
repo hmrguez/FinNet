@@ -34,6 +34,22 @@ As for the metrics we will use are the following:
 - Robustness: how well the system performs on the wildcard queries. A well handled query adds one to the score, meaning a perfect score is 5.
 - Performance: average time needed to generate the query
 
+== Example Queries
+
+Some example queries that will be used for the evaluation are:
+- Q: "How can I calculate compound interest for my savings manually?"
+- A: "Compound interest is calculated using the formula A = P(1 + r/n)^(nt), where A is the future value, P is the principal, r is the annual interest rate, n is the number of times interest is compounded per year, and t is the time in years."
+
+- Q: "How does the tax bracket system work for someone earning \$60,000 annually?"
+- A: "For a single filer, your income will be taxed progressively. For 2024, you’ll pay 10% on income up to \$11,000, 12% on income from \$11,001 to \$44,725, and 22% on income above that."
+
+Now for the wildcard queries, to test if the system hallucinates or provides an incoherent answer to an already incoherent question:
+- Q: "How much will I save monthly if I earn \$4,000 but spend \$6,000 each month?"
+- A: Here the correct answer is to point out that if the user spends more and they earn then they wouldn't be saving money at all
+
+- Q: "If I save \$100 weekly for 2 years at a 10% interest rate, what will I have in 5 years?"
+- A: Here the system should point out that there are missing variables, if the user states that they save \$100 weekly for 2 years then the system has no way of knowing how much they save weekly for the next 3 years
+
 == Results
 
 === Accuracy
