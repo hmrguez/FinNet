@@ -530,7 +530,7 @@ El estudio se enfoca en dos modelos de planificación financiera interconectados
    - *Extensión del Modelo Individual*: Aborda las responsabilidades financieras compartidas entre los miembros del hogar.
    - *Equidad Financiera*: Considera las prioridades individuales mientras optimiza el ahorro total:
 
-     $$ text{"TS"} = sum_(o=1)^n (I_o - sum_z E_(zo)) $$
+     $ "TS" = sum_(o=1)^n (I_o - sum_z E_("zo")) $
 
      donde TS es el ahorro total del hogar, $I_o$ es el ingreso de cada miembro, y $E_("zo")$ son sus respectivos gastos por categoría $z$.
 
