@@ -125,9 +125,7 @@ Al mantener este enfoque, la investigación pretende ofrecer conocimientos espec
 
 == Metodología
 
-Este estudio se llevó a cabo en dos etapas principales: investigación y diseño y desarrollo del sistema. Cada etapa jugó un papel crucial en la realización de un sistema de preguntas y respuestas de planificación financiera basado en un sistema de Generación Aumentada por Recuperación (RAG) basado en grafos, asegurando tanto una base teórica como una implementación práctica.
-
-=== Investigación
+Este estudio se llevó a cabo en dos etapas principales: investigación y diseño y desarrollo del sistema. Cada etapa jugó un papel crucial en la realización de un sistema de preguntas y respuestas de planificación financiera basado en un sistema de Generación Aumentada por Recuperación (RAG) basado en grafos, asegurando tanto una base teórica como una implementación práctica. El diseño y desarrollo del sistema se cubrirá en el capítulo de implementación
 
 La fase de investigación comprendió dos objetivos principales:
 	1.	Encuesta de Sistemas RAG Basados en Grafos
@@ -137,189 +135,26 @@ Una revisión secundaria se centró en explorar trabajos existentes en el domini
 
 Estas dos corrientes de investigación aseguraron que el diseño del sistema estuviera basado en técnicas establecidas mientras se abordaban los requisitos únicos de la aplicación objetivo.
 
-=== Diseño y Desarrollo del Sistema
-
-El sistema se implementó en varias fases, cada una abordando componentes distintos necesarios para la funcionalidad del sistema de preguntas y respuestas.
-	1.	Extracción de Conocimiento
-Se utilizaron herramientas y bibliotecas como LangChain, Beautiful Soup y APIs de Gemini y OpenAI para extraer conocimientos de planificación financiera de varias fuentes web. La información se procesó en una estructura de grafo con nodos y aristas, donde ambos contenían anotaciones textuales. Por ejemplo:
-        -	Nodo: "ARRENDAMIENTO DE COCHE"
-        -	Arista: "ES UNA FUENTE DE"
-        -	Nodo Objetivo: "DEUDA"
-Además, el grafo capturó múltiples relaciones por nodo, como se ilustra en:
-        -	"ARRENDAMIENTO DE COCHE" -> "REQUIERE" -> "PAGOS MENSUALES".
-La estructura del grafo se almacenó en Neo4j, mientras que las representaciones incrustadas del contenido textual se almacenaron en una base de datos de vectores utilizando MongoDB. Esta representación dual permitió flexibilidad en las estrategias de recuperación.
-	2.	Recuperación de Conocimiento
-El enfoque principal fue recuperar conocimiento de las incrustaciones del grafo en lugar de la estructura del grafo en sí. Se emplearon técnicas como el clustering k-means y la similitud coseno para identificar nodos y aristas relevantes. Estos métodos permitieron una recuperación eficiente de puntos de datos semánticamente similares basados en las consultas de los usuarios.
-	3.	Extracción de Subgrafos
-Los nodos y aristas recuperados formaron la base para construir un subgrafo, representando el subconjunto de información más relevante para una consulta dada. Se exploraron varias técnicas para la extracción de subgrafos, que se detallarán en secciones posteriores.
-	4.	Generación de Respuestas
-El subgrafo extraído se procesó para generar respuestas en lenguaje natural. Esto se logró utilizando la API de Gemini, aprovechando varios modelos para transformar los datos estructurados del grafo en salidas coherentes y contextualmente apropiadas.
-	5.	Evaluación y Pruebas
-Para evaluar el rendimiento del sistema de preguntas y respuestas, se creó un conjunto de consultas elaboradas a mano que cubrían diversos escenarios financieros. Las respuestas del sistema se compararon con las de otros sistemas y modelos de propósito general. La evaluación se basó en las siguientes métricas:
-        -	Precisión: La corrección de la información proporcionada en relación con la consulta.
-        -	Corrección Factual: Si la respuesta se alineaba con el conocimiento financiero verificado.
-        -	Eficiencia: La velocidad y el costo computacional de generar una respuesta.
-        -	Robustez: La capacidad del sistema para manejar consultas ambiguas o incompletas.
-
 Este marco metodológico aseguró una exploración e implementación sistemática del sistema RAG basado en grafos propuesto, proporcionando una base para contribuciones tanto técnicas como prácticas al campo de la planificación financiera.
 
 == Estructura de la Tesis
 
-Esta tesis está organizada en varios capítulos, cada uno abordando un aspecto específico del proceso de investigación y contribuyendo al objetivo general de desarrollar un sistema de preguntas y respuestas de planificación financiera basado en un sistema de Generación Aumentada por Recuperación (RAG) basado en grafos. La estructura es la siguiente:
-	-	*Capítulo 1: Introducción*: La introducción proporciona una visión general de la investigación, incluyendo el contexto, la declaración del problema, los objetivos de la investigación y la motivación del estudio. También se describen el alcance y las delimitaciones del trabajo, y se presentan las preguntas de investigación y las hipótesis que guían el estudio.
-    -   *Capítulo 2: Preliminares*: Este capítulo proporciona una descripción general de los conceptos principales de las finanzas personales y la planificación financiera comunmente manejados en el sistema, no es necesaria su lectura para comprender el resto de la tesis.
-	-	*Capítulo 3: Revisión de la Literatura*: Este capítulo revisa la literatura relevante en las áreas de sistemas de preguntas y respuestas fintech, sistemas RAG y representaciones de conocimiento basadas en grafos. Incluye una discusión de los enfoques existentes para el desarrollo de sistemas de preguntas y respuestas en el dominio de la planificación financiera y una encuesta de diferentes técnicas para sistemas RAG basados en grafos, proporcionando la base para la investigación.
-	-	*Capítulo 4: Arquitectura e Implementación del Sistema*: Este capítulo proporciona una descripción detallada de la arquitectura del sistema, incluyendo los componentes involucrados en la extracción de conocimiento, la construcción de grafos, la recuperación y la generación de lenguaje natural. También se discute el proceso de implementación, con especial atención a las herramientas, marcos y bases de datos utilizados para desarrollar el sistema.
-	-	*Capítulo 5: Evaluación y Resultados*: En este capítulo se presentan los resultados de la evaluación del sistema. Se evalúa el rendimiento del sistema de preguntas y respuestas basado en varias métricas como precisión, corrección factual, eficiencia y robustez. Los hallazgos de los experimentos de evaluación se discuten en detalle y se analizan las implicaciones de los resultados.
-	-	*Capítulo 6: Conclusión y Trabajo Futuro*: El capítulo de conclusión resume los hallazgos clave de la investigación, reflexiona sobre la contribución del trabajo y discute sus limitaciones. También sugiere posibles vías para futuras investigaciones, incluyendo mejoras al sistema y aplicaciones adicionales de enfoques RAG basados en grafos en otros dominios.
 
-#pagebreak()
-
-= Preliminares
-
-Esta sección proporciona una visión general de los conceptos financieros esenciales pertinentes a los servicios de asesoría financiera personalizada. Su objetivo es familiarizar a los lectores que pueden no tener antecedentes en finanzas con la terminología y los principios fundamentales relevantes de las finanzas personales para esta tesis.
-
-== _Servicios de Asesoría Financiera Personalizada_
-
-*Los servicios de asesoría financiera personalizada* implican ofrecer orientación financiera a medida para individuos basada en sus situaciones financieras únicas, objetivos, tolerancias al riesgo y preferencias. A diferencia de los consejos genéricos, los servicios personalizados consideran las circunstancias específicas de cada cliente para proporcionar recomendaciones sobre inversiones, ahorros, planificación de la jubilación, estrategias fiscales y más.
-
-== _Instrumentos Financieros_
-
-Los instrumentos financieros son activos o paquetes de capital que pueden ser negociados. Se clasifican en varias categorías:
-
-- *Acciones (Stocks)*: Representan participaciones de propiedad en una empresa. Los accionistas pueden recibir dividendos y tienen potencial de apreciación de capital.
-
-- *Valores de Renta Fija (Bonos)*: Instrumentos de deuda emitidos por corporaciones o gobiernos. Los inversionistas reciben pagos periódicos de intereses y la devolución del principal al vencimiento.
-
-- *Derivados*: Contratos cuyo valor se deriva de activos subyacentes como acciones, bonos, materias primas o monedas. Ejemplos incluyen opciones y futuros.
-
-- *Fondos Mutuos y Fondos Cotizados en Bolsa (ETFs)*: Vehículos de inversión agrupados que permiten a los inversionistas poseer una cartera diversificada de activos.
-
-- *Commodities*: Bienes físicos como oro, petróleo o productos agrícolas que pueden ser negociados en mercados especializados.
-
-== _Tolerancia al Riesgo y Perfil de Riesgo_
-
-*La tolerancia al riesgo* se refiere a la capacidad y disposición de un inversionista para soportar la volatilidad y las posibles pérdidas en su cartera de inversiones. Está influenciada por factores como los objetivos de inversión, el horizonte temporal, la estabilidad financiera y la comodidad psicológica con el riesgo.
-
-*El perfil de riesgo* es el proceso de evaluar la tolerancia al riesgo de un individuo para alinear las estrategias de inversión en consecuencia. Asegura que los consejos financieros y los productos recomendados sean adecuados para el apetito de riesgo del cliente.
-
-== _Cumplimiento Regulatorio en Servicios Financieros_
-
-Las instituciones financieras operan bajo marcos regulatorios estrictos diseñados para proteger a los consumidores y mantener la integridad del mercado. Los conceptos regulatorios clave incluyen:
-
-- *Conozca a su Cliente (KYC)*: Procedimientos para verificar la identidad de los clientes, destinados a prevenir fraudes, lavado de dinero y otras actividades ilícitas.
-
-- *Anti-Lavado de Dinero (AML)*: Regulaciones que requieren que las instituciones financieras monitoreen, detecten y reporten transacciones sospechosas.
-
-- *Deber Fiduciario*: Una obligación legal que requiere que los asesores financieros actúen en el mejor interés de sus clientes, priorizando las necesidades de los clientes sobre las propias.
-
-- *Idoneidad y Apropiación*: Los asesores deben asegurar que los productos y servicios financieros sean adecuados para la situación financiera y los objetivos de inversión del cliente.
-
-== _Tipos y Fuentes de Datos Financieros_
-
-La asesoría financiera efectiva se basa en diversos tipos de datos:
-
-- *Datos de Clientes*: Información personal y financiera sobre los clientes, incluyendo ingresos, gastos, activos, pasivos y metas de vida.
-
-- *Datos de Mercado*: Información sobre los mercados financieros, como precios de acciones, tasas de interés e indicadores económicos.
-
-- *Datos de Productos*: Detalles sobre productos financieros, incluyendo historial de rendimiento, tarifas, términos y condiciones.
-
-- *Actualizaciones Regulatorias*: Información sobre cambios en leyes, regulaciones y requisitos de cumplimiento.
-
-- *Datos No Estructurados*: Información textual de fuentes como artículos de noticias, informes de analistas y redes sociales que pueden impactar las decisiones financieras.
-
-== _Perfilado de Clientes en Finanzas_
-
-*El perfilado de clientes* implica crear una imagen detallada de un cliente para ofrecer servicios personalizados. Los elementos incluyen:
-
-- *Demografía*: Edad, género, educación, ocupación y estado familiar.
-
-- *Estado Financiero*: Patrimonio neto, nivel de ingresos, historial crediticio y flujo de efectivo.
-
-- *Objetivos de Inversión*: Metas como preservación de capital, generación de ingresos o crecimiento.
-
-- *Rasgos Conductuales*: Actitudes hacia el gasto, el ahorro y la inversión; respuestas a las fluctuaciones del mercado.
-
-== _Visión General de los Mercados Financieros_
-
-Los mercados financieros facilitan la compra y venta de instrumentos financieros. Son cruciales para:
-
-- *Descubrimiento de Precios*: Determinar el valor de los activos basado en la oferta y la demanda.
-
-- *Provisión de Liquidez*: Permitir a los inversionistas comprar o vender activos rápidamente sin causar cambios significativos en el precio.
-
-- *Asignación de Capital*: Dirigir fondos de los ahorradores a entidades que pueden usarlos para propósitos productivos.
-
-*Tipos de Mercados Financieros*:
-
-- *Mercados de Acciones*: Donde se emiten y negocian acciones.
-
-- *Mercados de Bonos*: Para la negociación de valores de deuda.
-
-- *Mercados de Divisas*: Donde se negocian monedas.
-
-- *Mercados de Derivados*: Para la negociación de contratos como futuros y opciones.
-
-== _Estrategias de Inversión_
-
-Las estrategias de inversión son planes diseñados para lograr objetivos financieros específicos. Las estrategias comunes incluyen:
-
-- *Asignación de Activos*: Distribuir inversiones entre diferentes clases de activos (por ejemplo, acciones, bonos, efectivo) para equilibrar riesgo y recompensa.
-
-- *Diversificación*: Invertir en una variedad de activos para reducir la exposición a cualquier activo o riesgo único.
-
-- *Inversión en Valor*: Seleccionar acciones infravaloradas con sólidos fundamentos.
-
-- *Inversión en Crecimiento*: Enfocarse en empresas que se espera que crezcan a una tasa superior al promedio.
-
-- *Inversión en Ingresos*: Apuntar a inversiones que proporcionen ingresos regulares, como dividendos o pagos de intereses.
-
-== _Proceso de Planificación Financiera_
-
-El proceso de planificación financiera es un enfoque sistemático para gestionar las actividades financieras de un individuo. Los pasos clave incluyen:
-
-1. *Establecimiento de la Relación Cliente-Asesor*: Definir el alcance de los servicios y las responsabilidades.
-
-2. *Recolección de Datos y Objetivos*: Recopilar información completa sobre la situación financiera y los objetivos del cliente.
-
-3. *Análisis del Estado Financiero*: Evaluar la salud financiera actual, incluyendo flujo de efectivo, niveles de deuda y cartera de inversiones.
-
-4. *Desarrollo de Recomendaciones*: Formular estrategias para alcanzar los objetivos financieros, considerando la tolerancia al riesgo y los horizontes temporales.
-
-5. *Implementación del Plan*: Ejecutar las estrategias acordadas, lo que puede implicar la compra de productos financieros o el ajuste de participaciones existentes.
-
-6. *Monitoreo y Revisión*: Evaluar regularmente el rendimiento del plan y hacer ajustes en respuesta a cambios en las circunstancias del cliente o en las condiciones del mercado.
-
-== _Conceptos Financieros Clave_
-
-- *Valor Temporal del Dinero*: El principio de que una suma de dinero tiene mayor valor ahora que la misma suma en el futuro debido a su potencial de generación de ingresos.
-
-- *Interés Compuesto*: Ganar intereses tanto sobre el principal inicial como sobre los intereses acumulados de periodos anteriores.
-
-- *Inflación*: La tasa a la cual el nivel general de precios de bienes y servicios aumenta, erosionando el poder adquisitivo.
-
-- *Liquidez*: La facilidad con la que un activo puede convertirse en efectivo sin afectar su precio de mercado.
-
-- *Apalancamiento*: Uso de capital prestado para aumentar el retorno potencial de una inversión, lo que también incrementa el riesgo potencial.
-
-== _Indicadores Económicos_
-
-Los indicadores económicos son estadísticas que proporcionan información sobre el rendimiento económico y las perspectivas futuras. Ejemplos incluyen:
-
-- *Producto Interno Bruto (PIB)*: Valor total de bienes y servicios producidos, indicando la salud económica.
-
-- *Tasa de Desempleo*: Porcentaje de la fuerza laboral que está desempleada, reflejando las condiciones del mercado laboral.
-
-- *Índice de Precios al Consumidor (IPC)*: Mide los cambios en el nivel de precios de una canasta de bienes y servicios de consumo, indicando la inflación.
-
-- *Tasas de Interés*: El costo de pedir dinero prestado, influyendo en el gasto de los consumidores y la inversión empresarial.
+Esta tesis se organiza en los siguientes capítulos:
+	-	Capítulo 1: Introducción : Presenta el contexto, el problema, los objetivos, la motivación, el alcance y las preguntas de investigación.
+	-	Capítulo 2: Revisión de la Literatura : Analiza investigaciones previas sobre sistemas de preguntas y respuestas fintech, sistemas RAG y representaciones de conocimiento basadas en grafos.
+	-	Capítulo 3: Arquitectura e Implementación : Explica la estructura del sistema, la construcción de grafos y el proceso de generación de respuestas.
+	-	Capítulo 4: Evaluación y Resultados : Presenta y analiza el desempeño del sistema según métricas clave.
+	-	Capítulo 5: Conclusión y Trabajo Futuro : Resume los hallazgos, reflexiona sobre las limitaciones y sugiere mejoras.
+   -  Anexos: Un glosario de terminos financieros que se usan en las pruebas. No es necesaria su lectura para comprender la tesis
+
+Este esquema proporciona una visión clara y concisa del contenido de la tesis.
 
 #pagebreak()
 
 = Revisión de Literatura
 
-Esta revisión de la literatura comenzará proporcionando una visión general de las tecnologías, marcos y metodologías de vanguardia utilizados en aplicaciones de RAG utilizando una base de conocimiento en grafo. Esto incluirá el preprocesamiento de documentos, la creación de grafos de conocimiento, la incrustación, la recuperación de información y la generación utilizando LLMs. Posteriormente, discutiremos algunos estudios relevantes sobre aplicaciones de RAG en campos no financieros, particularmente aplicaciones médicas, ya que pueden ser útiles al orientar el uso específico del dominio de la arquitectura RAG. Y después de eso, resumiremos algunos estudios sobre el uso de RAG, calidad de datos, etc., para aplicaciones FinTech, especialmente la planificación financiera, que será el enfoque de la propuesta de este documento.
+Esta revisión de la literatura comenzará proporcionando una visión general de las tecnologías, marcos y metodologías de vanguardia utilizados en aplicaciones de RAG utilizando una base de conocimiento en grafo. Esto incluirá el preprocesamiento de documentos, la creación de grafos de conocimiento, la incrustación, la recuperación de información y la generación utilizando LLMs. Posteriormente, se discutirán algunos estudios relevantes sobre aplicaciones de RAG en campos no financieros, particularmente aplicaciones médicas, ya que pueden ser útiles al orientar el uso específico del dominio de la arquitectura RAG. Y después de eso, se resumirán algunos estudios sobre el uso de RAG, calidad de datos, etc., para aplicaciones FinTech, especialmente la planificación financiera, que será el enfoque de la propuesta de este documento.
 
 == Preprocesamiento y Almacenamiento de Datos
 
@@ -578,15 +413,37 @@ Aunque se han logrado avances significativos en la aplicación de sistemas RAG y
 
 = Implementación
 
+#image("Diagram Export Feb 7 2025.png")
+
+== Descripcion general
+
+El sistema se implementó en varias fases, cada una abordando componentes distintos necesarios para la funcionalidad del sistema de preguntas y respuestas.
+	1.	Extracción de Conocimiento: Se utilizaron herramientas y bibliotecas como LangChain, Beautiful Soup y APIs de Gemini y OpenAI para extraer conocimientos de planificación financiera de varias fuentes web. La información se procesó en una estructura de grafo con nodos y aristas, donde ambos contenían anotaciones textuales. Por ejemplo:
+        -	Nodo: "ARRENDAMIENTO DE COCHE"
+        -	Arista: "ES UNA FUENTE DE"
+        -	Nodo Objetivo: "DEUDA"
+Además, el grafo capturó múltiples relaciones por nodo, como se ilustra en:
+        -	"ARRENDAMIENTO DE COCHE" -> "REQUIERE" -> "PAGOS MENSUALES".
+La estructura del grafo se almacenó en Neo4j, mientras que las representaciones incrustadas del contenido textual se almacenaron en una base de datos de vectores utilizando MongoDB. Esta representación dual permitió flexibilidad en las estrategias de recuperación.
+	2.	Recuperación de Conocimiento: El enfoque principal fue recuperar conocimiento de las incrustaciones del grafo en lugar de la estructura del grafo en sí. Se emplearon técnicas como el clustering k-means y la similitud coseno para identificar nodos y aristas relevantes. Estos métodos permitieron una recuperación eficiente de puntos de datos semánticamente similares basados en las consultas de los usuarios.
+	3.	Extracción de Subgrafos: Los nodos y aristas recuperados formaron la base para construir un subgrafo, representando el subconjunto de información más relevante para una consulta dada. Se exploraron varias técnicas para la extracción de subgrafos, que se detallarán en secciones posteriores.
+	4.	Generación de Respuestas: El subgrafo extraído se procesó para generar respuestas en lenguaje natural. Esto se logró utilizando la API de Gemini, aprovechando varios modelos para transformar los datos estructurados del grafo en salidas coherentes y contextualmente apropiadas.
+	5.	Evaluación y Pruebas: Para evaluar el rendimiento del sistema de preguntas y respuestas, se creó un conjunto de consultas elaboradas a mano que cubrían diversos escenarios financieros. Las respuestas del sistema se compararon con las de otros sistemas y modelos de propósito general. La evaluación se basó en las siguientes métricas:
+        -	Precisión: La corrección de la información proporcionada en relación con la consulta.
+        -	Corrección Factual: Si la respuesta se alineaba con el conocimiento financiero verificado.
+        -	Eficiencia: La velocidad y el costo computacional de generar una respuesta.
+        -	Robustez: La capacidad del sistema para manejar consultas ambiguas o incompletas.
+
+
 == Recolección y preprocesamiento de datos
 
-El primer paso en la metodología implica la recolección y el preprocesamiento de datos financieros de diversas fuentes para construir una base de conocimiento completa. Estos datos abarcan varios conceptos financieros, productos, regulaciones y tendencias del mercado relevantes para el dominio del asesoramiento. Actualmente existen varios conjuntos de datos disponibles para datos financieros, como informes estructurados, fuentes de datos de mercado y documentos regulatorios. Sin embargo, para este caso de uso particular, no nos centraremos en dichos datos, ya que pueden causar ruido entre la información relevante requerida para el conjunto de datos. En su lugar, nos centraremos en la creación de un conjunto de datos personalizado que se adapte al dominio del asesoramiento financiero.
+El primer paso en la metodología implica la recolección y el preprocesamiento de datos financieros de diversas fuentes para construir una base de conocimiento completa. Estos datos abarcan varios conceptos financieros, productos, regulaciones y tendencias del mercado relevantes para el dominio del asesoramiento. Actualmente, existen varios conjuntos de datos disponibles para datos financieros, como informes estructurados, fuentes de datos de mercado y documentos regulatorios. Sin embargo, en este caso particular, no se considerarán dichos datos, ya que pueden introducir ruido en la información relevante requerida para el conjunto de datos. En su lugar, se desarrollará un conjunto de datos personalizado que se adapte al dominio del asesoramiento financiero.
 
-Para lograr ese objetivo, nuestra herramienta principal es el web scraping, que nos permite extraer información de sitios web financieros, blogs, foros y organismos reguladores. En este caso particular, nos centraremos en la extracción de información de blogs financieros, ya que proporcionan una rica fuente de contenido actualizado y relevante, con especial interés en el sitio web https://www.investopedia.com/. Este sitio web es una plataforma de educación financiera muy conocida que cubre una amplia gama de temas, incluyendo inversiones, comercio, finanzas personales y economía. Al extraer contenido de Investopedia, podemos recopilar un conjunto diverso de conceptos financieros, definiciones y explicaciones que suelen buscar los usuarios que buscan asesoramiento financiero.
+Para lograr este objetivo, la herramienta principal es el web scraping, que permite extraer información de sitios web financieros, blogs, foros y organismos reguladores. En este caso particular, se priorizará la extracción de información de blogs financieros, ya que constituyen una fuente rica de contenido actualizado y relevante. Se prestará especial atención al sitio web https://investopedia.com, una plataforma de educación financiera reconocida que cubre una amplia gama de temas, incluyendo inversiones, comercio, finanzas personales y economía. La extracción de contenido de Investopedia permitirá recopilar un conjunto diverso de conceptos financieros, definiciones y explicaciones que suelen ser de interés para quienes buscan asesoramiento financiero.
 
-*Justificación*: El web scraping de Investopedia garantiza que los datos sean actuales, relevantes y completos, lo cual es crucial para proporcionar un asesoramiento financiero preciso. Este enfoque también permite la creación de un conjunto de datos personalizado que se adapte específicamente a las necesidades del dominio del asesoramiento financiero.
+Justificación: El web scraping de Investopedia garantiza que los datos sean actuales, relevantes y completos, lo cual es crucial para proporcionar un asesoramiento financiero preciso. Este enfoque también facilita la creación de un conjunto de datos personalizado que se ajuste específicamente a las necesidades del dominio del asesoramiento financiero.
 
-Los datos extraídos se preprocesan para eliminar contenido irrelevante, estandarizar formatos y anotar entidades y relaciones. Este paso de preprocesamiento implica técnicas de procesamiento del lenguaje natural como la tokenización, la lematización y el reconocimiento de entidades para garantizar que los datos estén estructurados y semánticamente enriquecidos. Para este proceso, utilizaremos NLTK, que es una biblioteca de Python de PNL de uso general. El objetivo principal de este paso es crear un conjunto de datos limpio y estructurado que pueda utilizarse eficazmente para la construcción de grafos y la recuperación de información.
+Los datos extraídos se preprocesan para eliminar contenido irrelevante, estandarizar formatos y anotar entidades y relaciones. Este paso de preprocesamiento incluye técnicas de procesamiento del lenguaje natural como la tokenización, la lematización y el reconocimiento de entidades, con el fin de garantizar que los datos estén estructurados y semánticamente enriquecidos. Para este proceso, se empleará NLTK, una biblioteca de Python de procesamiento de lenguaje natural de uso general. El objetivo principal de este paso es generar un conjunto de datos limpio y estructurado que pueda utilizarse eficazmente para la construcción de grafos y la recuperación de información.
 
 *Justificación*: El uso de NLTK para el preprocesamiento garantiza que los datos estén limpios, estructurados y semánticamente enriquecidos, lo cual es esencial para la construcción precisa de grafos y la recuperación de información.
 
@@ -594,7 +451,7 @@ Los datos extraídos se preprocesan para eliminar contenido irrelevante, estanda
 
 El núcleo de la metodología reside en la construcción de una representación del conocimiento basada en grafos que capture las intrincadas relaciones entre los conceptos financieros. Este grafo se construye utilizando los datos preprocesados, donde cada concepto financiero se representa como un nodo y las relaciones entre conceptos se representan como aristas. La estructura del grafo permite un recorrido eficiente, una recuperación sensible al contexto y una comprensión semántica del dominio financiero.
 
-Este paso no se realizó manualmente, sino utilizando una herramienta muy útil llamada Langchain, en particular LangGraph, que es una colección de herramientas para construir y consultar grafos de conocimiento a partir de datos de texto. LangGraph utiliza modelos de procesamiento del lenguaje natural de última generación para extraer entidades, relaciones y jerarquías de texto no estructurado, y luego construye una base de datos de grafos que puede consultarse para la recuperación de información. Al aprovechar LangGraph, podemos automatizar el proceso de construcción del grafo y garantizar la escalabilidad y la precisión del grafo de conocimiento resultante. Cabe destacar que Langchain es un conjunto de herramientas que funciona con modelos LLM de terceros, pero no los proporciona por defecto, lo que significa que el usuario debe proporcionar claves API para los modelos que desea utilizar. Personalmente, utilicé el modelo GPT-4o-mini, que es un modelo de propósito general y relativamente rápido creado por OpenAI para esta tarea.
+Este paso no se realizó manualmente, sino utilizando una herramienta muy útil llamada Langchain, en particular LangGraph, que es una colección de herramientas para construir y consultar grafos de conocimiento a partir de datos de texto. LangGraph utiliza modelos de procesamiento del lenguaje natural de última generación para extraer entidades, relaciones y jerarquías de texto no estructurado, y luego construye una base de datos de grafos que puede consultarse para la recuperación de información. Al aprovechar LangGraph, se puede automatizar el proceso de construcción del grafo y garantizar la escalabilidad y la precisión del grafo de conocimiento resultante. Cabe destacar que Langchain es un conjunto de herramientas que funciona con modelos LLM de terceros, pero no los proporciona por defecto, lo que significa que el usuario debe proporcionar claves API para los modelos que desea utilizar. Personalmente, utilicé el modelo GPT-4o-mini, que es un modelo de propósito general y relativamente rápido creado por OpenAI para esta tarea.
 
 *Justificación*: Automatizar el proceso de construcción del grafo con Langchain garantiza la escalabilidad y la precisión, mientras que el uso del modelo GPT-4o-mini proporciona una extracción de entidades y una asignación de relaciones eficiente y precisa.
 
@@ -606,7 +463,7 @@ Pasar esos documentos a través del pipeline de LangGraph, utilizando un enfoque
 
 Después de ese procesamiento, el sistema recopila todas las entidades encontradas en todos los documentos, así como las entidades entre ellas. Esto es particularmente útil, ya que permite al sistema crear relaciones entre entidades que no están directamente relacionadas en el mismo documento, y también utiliza el poder de un modelo de lenguaje para crear un grafo más preciso y completo.
 
-Luego podemos construir el grafo utilizando una base de datos de grafos, en este caso utilizaremos Neo4j, que es una base de datos de grafos popular que permite el almacenamiento, la consulta y la visualización eficientes de datos de grafos. Las entidades se almacenan como nodos en el grafo, y las relaciones se almacenan como aristas, formando una representación conectada y estructurada de la base de conocimiento financiero.
+Luego se construirá el grafo utilizando una base de datos de grafos, en este caso se utilizará Neo4j, que es una base de datos de grafos popular que permite el almacenamiento, la consulta y la visualización eficientes de datos de grafos. Las entidades se almacenan como nodos en el grafo, y las relaciones se almacenan como aristas, formando una representación conectada y estructurada de la base de conocimiento financiero.
 
 *Justificación*: El uso de Neo4j para el almacenamiento y la consulta de grafos garantiza una gestión eficiente y escalable del grafo de conocimiento, mientras que el enfoque de salida estructurada de LangGraph garantiza una construcción precisa y completa del grafo.
 
@@ -616,7 +473,7 @@ El grafo resultante es un grafo textual, lo que significa que las relaciones y l
 
 Para permitir la recuperación y generación eficiente de asesoramiento financiero, la metodología incorpora técnicas de incrustación de vectores para representar datos textuales en un espacio vectorial continuo. Este paso es crucial para calcular similitudes semánticas entre las consultas de los usuarios y los nodos del grafo, así como para generar respuestas contextualmente relevantes utilizando modelos de lenguaje.
 
-Para esta tarea, utilizaremos un modelo de Hugging Face en forma de Sentence Transformer, que es un modelo basado en transformadores que mapea oraciones a vectores de alta dimensión en un espacio semántico. Esto nos permite codificar tanto las consultas de los usuarios como los nodos del grafo como vectores, lo que permite cálculos de similitud rápidos y precisos.
+Para esta tarea, se utilizará un modelo de Hugging Face en forma de Sentence Transformer, que es un modelo basado en transformadores que mapea oraciones a vectores de alta dimensión en un espacio semántico. Esto nos permite codificar tanto las consultas de los usuarios como los nodos del grafo como vectores, lo que permite cálculos de similitud rápidos y precisos.
 
 *Justificación*: El uso de Sentence Transformers de Hugging Face garantiza una alta precisión y rendimiento en los cálculos de similitud semántica, lo cual es esencial para la recuperación precisa de información y la generación de respuestas.
 
@@ -624,7 +481,7 @@ El proceso de incrustación de vectores implica la codificación de cada nodo y 
 
 *Justificación*: Almacenar incrustaciones de vectores en MongoDB garantiza una recuperación eficiente y escalabilidad, mientras que el uso de la similitud del coseno para la coincidencia garantiza una recuperación de información precisa y relevante.
 
-Para fines de prueba, también realizaremos una incrustación de vectores para cada documento en su conjunto.
+Para fines de prueba, también se realizará una incrustación de vectores para cada documento en su conjunto.
 
 == Responder a una consulta
 
@@ -634,27 +491,27 @@ Como se mencionó anteriormente, la consulta se limpia de la misma manera que lo
 
 *Justificación*: El uso de la similitud del coseno para la coincidencia garantiza que se seleccionen los nodos y aristas más relevantes, mientras que la formación de un subgrafo garantiza que la información recuperada sea contextualmente relevante y completa.
 
-El subgrafo resultante de la recuperación es un término amplio, pero hemos utilizado dos enfoques diferentes para crearlo, cada uno con sus propias ventajas e inconvenientes:
+El subgrafo resultante de la recuperación es un término amplio, pero en este sistem se han utilizado dos enfoques diferentes para crearlo, cada uno con sus propias ventajas e inconvenientes:
 
-Básico: este enfoque es extremadamente simple, ya que el subgrafo resultante solo incluirá los nodos y aristas recuperados y sus vecinos directos. Este enfoque es rápido y eficiente, pero puede que no capture todo el contexto de la consulta. Sin embargo, los resultados siguen siendo muy buenos, como veremos más adelante.
+Básico: este enfoque es extremadamente simple, ya que el subgrafo resultante solo incluirá los nodos y aristas recuperados y sus vecinos directos. Este enfoque es rápido y eficiente, pero puede que no capture todo el contexto de la consulta. Sin embargo, los resultados siguen siendo muy buenos, como se verá más adelante.
 
 Avanzado: este enfoque es más complejo y costoso desde el punto de vista computacional. También conocido como el Subgrafo de Expansión Mínima, es esencialmente un problema de optimización en el que nos gustaría encontrar el subgrafo conectado que minimice la cantidad de aristas y nodos involucrados, al tiempo que se asegura de que todos los nodos y aristas relevantes estén presentes. Si no existe tal subgrafo, entonces se divide el grafo en componentes conectados y se devuelve un Subgrafo de Expansión Mínima para cada componente, por supuesto trabajando con los nodos y aristas más relevantes que están presentes en el componente respectivo.
 
 *Justificación*: El uso de enfoques básicos y avanzados para la extracción de subgrafos garantiza la flexibilidad y la precisión en la captura del contexto completo de la consulta, al tiempo que se equilibra la eficiencia computacional, dependiendo de cuál se elija utilizar.
 
-Ahora, dado el subgrafo, utilizamos un modelo de lenguaje para generar una respuesta que sea contextualmente relevante para la consulta del usuario. En este caso utilizaremos el modelo Gemini-2.0-exp, un modelo de vanguardia desarrollado por el equipo de Google AI, experto en tareas textuales. El prompt se construye concatenando la consulta del usuario con la representación textual del subgrafo, lo que proporciona al modelo el contexto necesario para generar respuestas informativas y coherentes.
+Ahora, dado el subgrafo, el sistema usará un modelo de lenguaje para generar una respuesta que sea contextualmente relevante para la consulta del usuario. En este caso se utiliza el modelo Gemini-2.0-exp, un modelo de vanguardia desarrollado por el equipo de Google AI, experto en tareas textuales. El prompt se construye concatenando la consulta del usuario con la representación textual del subgrafo, lo que proporciona al modelo el contexto necesario para generar respuestas informativas y coherentes.
 
 *Justificación*: El uso del modelo Gemini-2.0-exp garantiza una generación de respuestas de alta calidad y contextualmente relevante, mientras que la construcción del prompt con el subgrafo garantiza que el modelo tenga el contexto necesario para generar respuestas precisas.
 
 == Utilizando un ejército de expertos
 
-Lo que hemos visto hasta ahora es un sistema capaz de generar respuestas basadas en una consulta del usuario, pero ¿qué ocurre si la consulta del usuario no es lo suficientemente clara o el sistema no es capaz de recuperar la información necesaria? Aquí es donde entra en juego el ejército de expertos.
+Lo que se ha visto hasta ahora es un sistema capaz de generar respuestas basadas en una consulta del usuario, pero ¿qué ocurre si la consulta del usuario no es lo suficientemente clara o el sistema no es capaz de recuperar la información necesaria? Aquí es donde entra en juego el ejército de expertos.
 
-El ejército de expertos es una colección de expertos en el dominio construidos de la misma manera que el sistema, pero con la diferencia de que cada uno es experto en un campo diferente del dominio financiero. Cada uno de los llamados "expertos" idealmente tendrá un conjunto diferente de documentos y un prompt diferente para generar la respuesta. Haciendo que la respuesta que un experto genera, aunque también relativamente similar a la de otro, tenga un enfoque completamente diferente. Por ejemplo, en este trabajo vamos a utilizar 3 expertos diferentes: finanzas personales, economía e inversión. Cada uno tendrá una base de datos designada a partir de artículos y blogs de su campo.
+El ejército de expertos es una colección de expertos en el dominio construidos de la misma manera que el sistema, pero con la diferencia de que cada uno es experto en un campo diferente del dominio financiero. Cada uno de los llamados "expertos" idealmente tendrá un conjunto diferente de documentos y un prompt diferente para generar la respuesta. Haciendo que la respuesta que un experto genera, aunque también relativamente similar a la de otro, tenga un enfoque completamente diferente. Por ejemplo, en este trabajo se va a utilizar 3 expertos diferentes: finanzas personales, economía e inversión. Cada uno tendrá una base de datos designada a partir de artículos y blogs de su campo.
 
 *Justificación*: El uso de un ejército de expertos garantiza que el sistema pueda manejar una amplia gama de consultas financieras con alta precisión y profundidad, al tiempo que aprovecha la experiencia específica del dominio para obtener respuestas más precisas y completas.
 
-Luego pediremos a cada experto que genere una respuesta basada en la consulta proporcionada y tendremos un agente orquestador que recopilará esas respuestas y, en otra llamada LLM, las combinará en una única respuesta para el usuario. Esto da como resultado una respuesta multifacética, que depende en gran medida de los expertos que elijamos para la tarea y de cómo compongamos el conjunto de datos para cada uno de ellos.
+Luego se pide a cada experto que genere una respuesta basada en la consulta proporcionada y el sistema incluye un agente orquestador que recopilará esas respuestas y, en otra llamada LLM, las combinará en una única respuesta para el usuario. Esto da como resultado una respuesta multifacética, que depende en gran medida de los expertos que se elija para la tarea y de cómo se componga el conjunto de datos para cada uno de ellos.
 
 *Justificación*: La combinación de respuestas de múltiples expertos garantiza que la respuesta final sea multifacética y completa, aprovechando los puntos fuertes de cada experto específico del dominio para obtener una respuesta más precisa e informativa.
 
@@ -664,7 +521,7 @@ Luego pediremos a cada experto que genere una respuesta basada en la consulta pr
 
 == Descripción general de la evaluación
 
-Para evaluar nuestro sistema, utilizaremos 20 consultas diferentes con diversos grados de dificultad para que el sistema genere resúmenes. Luego compararemos los resúmenes generados con resúmenes predefinidos manualmente para ver el rendimiento del sistema. Además, hay 5 consultas comodín que no están incluidas en las 20 consultas; son consultas intencionalmente complejas o formuladas incorrectamente para ver cómo se comporta el sistema en tales casos, si hay una respuesta incoherente o ninguna respuesta.
+Para evaluar este sistema, se utilizan 20 consultas diferentes con diversos grados de dificultad para que el sistema genere resúmenes. Luego se comparan los resúmenes generados con resúmenes predefinidos manualmente para ver el rendimiento del sistema. Además, hay 5 consultas comodín que no están incluidas en las 20 consultas; son consultas intencionalmente complejas o formuladas incorrectamente para ver cómo se comporta el sistema en tales casos, si hay una respuesta incoherente o ninguna respuesta.
 
 == Métrica ROUGE para la evaluación
 
@@ -680,21 +537,21 @@ Estas son sus principales variantes:
 
 ROUGE es particularmente eficaz para tareas donde la salida generada debe parecerse mucho al texto escrito por humanos. Al incluirla en su sección de evaluación, usted enfatiza un enfoque cuantitativo y estandarizado para evaluar la calidad del texto generado.
 
-En este caso particular, analizaremos las puntuaciones ROUGE-1 y ROUGE-L para los resúmenes generados, en particular la puntuación de exhaustividad (recall).
+En este caso particular, se analizan las puntuaciones ROUGE-1 y ROUGE-L para los resúmenes generados, en particular la puntuación de exhaustividad (recall).
 
 == Métricas de evaluación
 
-Clasificaremos 3 sistemas:
+Se evaluarán 3 sistemas:
 
-Nuestro sistema con una generación de subgrafos básica - lo llamaremos GRAPH-BASIC.
+El sistema implementado con una generación de subgrafos básica - llamado GRAPH-BASIC.
 
-Nuestro sistema con una generación de subgrafos avanzada - lo llamaremos GRAPH-ADVANCED.
+El sistema implementado con una generación de subgrafos avanzada - llamado GRAPH-ADVANCED.
 
-Un sistema RAG simple con incrustación vectorial de texto completo (los artículos mismos) - lo llamaremos RAG-TEXT.
+Un sistema RAG simple con incrustación vectorial de texto completo (los artículos mismos) - llamado RAG-TEXT.
 
-Utilizaremos el modelo GPT-o1 de vanguardia como referencia.
+Se utilizará el modelo GPT-o1 de vanguardia como referencia.
 
-En cuanto a las métricas que utilizaremos, son las siguientes:
+En cuanto a las métricas que se usarán, son las siguientes:
 
 Precisión: qué tan bien se desempeña el sistema en las 20 consultas. Esto tendrá 2 partes: las puntuaciones ROUGE-1 y ROUGE-L para los resúmenes generados; y una puntuación autogenerada sobre 5 del modelo de referencia, es decir, se le pedirá al modelo GPT-o1 que genere una puntuación sobre 5 a partir de los resúmenes generados, la puntuación promedio se mostrará como Puntuación LLM.
 
@@ -805,6 +662,150 @@ A pesar de sus prometedores resultados, este estudio enfrentó limitaciones que 
 La investigación futura podría centrarse en refinar las técnicas de extracción de subgrafos, explorar la integración de datos multimodales y mejorar la personalización del asesoramiento financiero al proporcionar información sensible al contexto del usuario. Además, extender el sistema para manejar datos y transacciones en tiempo real aumentaría su utilidad práctica.
 
 Al integrar técnicas avanzadas de recuperación y generación, esta tesis demuestra cómo un sistema RAG basado en grafos puede brindar asesoramiento financiero personalizado, ofreciendo un paso prometedor en la evolución de las aplicaciones fintech inteligentes.
+
+
+#pagebreak()
+
+= Anexos
+
+Esta sección proporciona una visión general de los conceptos financieros esenciales pertinentes a los servicios de asesoría financiera personalizada. Su objetivo es familiarizar a los lectores que pueden no tener antecedentes en finanzas con la terminología y los principios fundamentales relevantes de las finanzas personales para esta tesis.
+
+== _Servicios de Asesoría Financiera Personalizada_
+
+*Los servicios de asesoría financiera personalizada* implican ofrecer orientación financiera a medida para individuos basada en sus situaciones financieras únicas, objetivos, tolerancias al riesgo y preferencias. A diferencia de los consejos genéricos, los servicios personalizados consideran las circunstancias específicas de cada cliente para proporcionar recomendaciones sobre inversiones, ahorros, planificación de la jubilación, estrategias fiscales y más.
+
+== _Instrumentos Financieros_
+
+Los instrumentos financieros son activos o paquetes de capital que pueden ser negociados. Se clasifican en varias categorías:
+
+- *Acciones (Stocks)*: Representan participaciones de propiedad en una empresa. Los accionistas pueden recibir dividendos y tienen potencial de apreciación de capital.
+
+- *Valores de Renta Fija (Bonos)*: Instrumentos de deuda emitidos por corporaciones o gobiernos. Los inversionistas reciben pagos periódicos de intereses y la devolución del principal al vencimiento.
+
+- *Derivados*: Contratos cuyo valor se deriva de activos subyacentes como acciones, bonos, materias primas o monedas. Ejemplos incluyen opciones y futuros.
+
+- *Fondos Mutuos y Fondos Cotizados en Bolsa (ETFs)*: Vehículos de inversión agrupados que permiten a los inversionistas poseer una cartera diversificada de activos.
+
+- *Commodities*: Bienes físicos como oro, petróleo o productos agrícolas que pueden ser negociados en mercados especializados.
+
+== _Tolerancia al Riesgo y Perfil de Riesgo_
+
+*La tolerancia al riesgo* se refiere a la capacidad y disposición de un inversionista para soportar la volatilidad y las posibles pérdidas en su cartera de inversiones. Está influenciada por factores como los objetivos de inversión, el horizonte temporal, la estabilidad financiera y la comodidad psicológica con el riesgo.
+
+*El perfil de riesgo* es el proceso de evaluar la tolerancia al riesgo de un individuo para alinear las estrategias de inversión en consecuencia. Asegura que los consejos financieros y los productos recomendados sean adecuados para el apetito de riesgo del cliente.
+
+== _Cumplimiento Regulatorio en Servicios Financieros_
+
+Las instituciones financieras operan bajo marcos regulatorios estrictos diseñados para proteger a los consumidores y mantener la integridad del mercado. Los conceptos regulatorios clave incluyen:
+
+- *Conozca a su Cliente (KYC)*: Procedimientos para verificar la identidad de los clientes, destinados a prevenir fraudes, lavado de dinero y otras actividades ilícitas.
+
+- *Anti-Lavado de Dinero (AML)*: Regulaciones que requieren que las instituciones financieras monitoreen, detecten y reporten transacciones sospechosas.
+
+- *Deber Fiduciario*: Una obligación legal que requiere que los asesores financieros actúen en el mejor interés de sus clientes, priorizando las necesidades de los clientes sobre las propias.
+
+- *Idoneidad y Apropiación*: Los asesores deben asegurar que los productos y servicios financieros sean adecuados para la situación financiera y los objetivos de inversión del cliente.
+
+== _Tipos y Fuentes de Datos Financieros_
+
+La asesoría financiera efectiva se basa en diversos tipos de datos:
+
+- *Datos de Clientes*: Información personal y financiera sobre los clientes, incluyendo ingresos, gastos, activos, pasivos y metas de vida.
+
+- *Datos de Mercado*: Información sobre los mercados financieros, como precios de acciones, tasas de interés e indicadores económicos.
+
+- *Datos de Productos*: Detalles sobre productos financieros, incluyendo historial de rendimiento, tarifas, términos y condiciones.
+
+- *Actualizaciones Regulatorias*: Información sobre cambios en leyes, regulaciones y requisitos de cumplimiento.
+
+- *Datos No Estructurados*: Información textual de fuentes como artículos de noticias, informes de analistas y redes sociales que pueden impactar las decisiones financieras.
+
+== _Perfilado de Clientes en Finanzas_
+
+*El perfilado de clientes* implica crear una imagen detallada de un cliente para ofrecer servicios personalizados. Los elementos incluyen:
+
+- *Demografía*: Edad, género, educación, ocupación y estado familiar.
+
+- *Estado Financiero*: Patrimonio neto, nivel de ingresos, historial crediticio y flujo de efectivo.
+
+- *Objetivos de Inversión*: Metas como preservación de capital, generación de ingresos o crecimiento.
+
+- *Rasgos Conductuales*: Actitudes hacia el gasto, el ahorro y la inversión; respuestas a las fluctuaciones del mercado.
+
+== _Visión General de los Mercados Financieros_
+
+Los mercados financieros facilitan la compra y venta de instrumentos financieros. Son cruciales para:
+
+- *Descubrimiento de Precios*: Determinar el valor de los activos basado en la oferta y la demanda.
+
+- *Provisión de Liquidez*: Permitir a los inversionistas comprar o vender activos rápidamente sin causar cambios significativos en el precio.
+
+- *Asignación de Capital*: Dirigir fondos de los ahorradores a entidades que pueden usarlos para propósitos productivos.
+
+*Tipos de Mercados Financieros*:
+
+- *Mercados de Acciones*: Donde se emiten y negocian acciones.
+
+- *Mercados de Bonos*: Para la negociación de valores de deuda.
+
+- *Mercados de Divisas*: Donde se negocian monedas.
+
+- *Mercados de Derivados*: Para la negociación de contratos como futuros y opciones.
+
+== _Estrategias de Inversión_
+
+Las estrategias de inversión son planes diseñados para lograr objetivos financieros específicos. Las estrategias comunes incluyen:
+
+- *Asignación de Activos*: Distribuir inversiones entre diferentes clases de activos (por ejemplo, acciones, bonos, efectivo) para equilibrar riesgo y recompensa.
+
+- *Diversificación*: Invertir en una variedad de activos para reducir la exposición a cualquier activo o riesgo único.
+
+- *Inversión en Valor*: Seleccionar acciones infravaloradas con sólidos fundamentos.
+
+- *Inversión en Crecimiento*: Enfocarse en empresas que se espera que crezcan a una tasa superior al promedio.
+
+- *Inversión en Ingresos*: Apuntar a inversiones que proporcionen ingresos regulares, como dividendos o pagos de intereses.
+
+== _Proceso de Planificación Financiera_
+
+El proceso de planificación financiera es un enfoque sistemático para gestionar las actividades financieras de un individuo. Los pasos clave incluyen:
+
+1. *Establecimiento de la Relación Cliente-Asesor*: Definir el alcance de los servicios y las responsabilidades.
+
+2. *Recolección de Datos y Objetivos*: Recopilar información completa sobre la situación financiera y los objetivos del cliente.
+
+3. *Análisis del Estado Financiero*: Evaluar la salud financiera actual, incluyendo flujo de efectivo, niveles de deuda y cartera de inversiones.
+
+4. *Desarrollo de Recomendaciones*: Formular estrategias para alcanzar los objetivos financieros, considerando la tolerancia al riesgo y los horizontes temporales.
+
+5. *Implementación del Plan*: Ejecutar las estrategias acordadas, lo que puede implicar la compra de productos financieros o el ajuste de participaciones existentes.
+
+6. *Monitoreo y Revisión*: Evaluar regularmente el rendimiento del plan y hacer ajustes en respuesta a cambios en las circunstancias del cliente o en las condiciones del mercado.
+
+== _Conceptos Financieros Clave_
+
+- *Valor Temporal del Dinero*: El principio de que una suma de dinero tiene mayor valor ahora que la misma suma en el futuro debido a su potencial de generación de ingresos.
+
+- *Interés Compuesto*: Ganar intereses tanto sobre el principal inicial como sobre los intereses acumulados de periodos anteriores.
+
+- *Inflación*: La tasa a la cual el nivel general de precios de bienes y servicios aumenta, erosionando el poder adquisitivo.
+
+- *Liquidez*: La facilidad con la que un activo puede convertirse en efectivo sin afectar su precio de mercado.
+
+- *Apalancamiento*: Uso de capital prestado para aumentar el retorno potencial de una inversión, lo que también incrementa el riesgo potencial.
+
+== _Indicadores Económicos_
+
+Los indicadores económicos son estadísticas que proporcionan información sobre el rendimiento económico y las perspectivas futuras. Ejemplos incluyen:
+
+- *Producto Interno Bruto (PIB)*: Valor total de bienes y servicios producidos, indicando la salud económica.
+
+- *Tasa de Desempleo*: Porcentaje de la fuerza laboral que está desempleada, reflejando las condiciones del mercado laboral.
+
+- *Índice de Precios al Consumidor (IPC)*: Mide los cambios en el nivel de precios de una canasta de bienes y servicios de consumo, indicando la inflación.
+
+- *Tasas de Interés*: El costo de pedir dinero prestado, influyendo en el gasto de los consumidores y la inversión empresarial.
+
 
 #pagebreak()
 
