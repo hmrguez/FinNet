@@ -4,7 +4,11 @@
   GraphRAG para la Planificación Financiera
 ]
 
-#set document(title: [#title], author: "Héctor M. Rodríguez Sosa")
+#let author = "Héctor M. Rodríguez Sosa"
+#let advisor = "Dr Alejandro Piad Morffis"
+
+
+#set document(title: [#title], author: author)
 
 #set page(
   paper: "us-letter",
@@ -16,13 +20,48 @@
   size: 11pt,
 )
 
-#align(center, text(17pt)[
+
+
+#align(center, text(22pt, )[
+
+
+   #text("Universidad de La Habana", size: 14pt)
+
+   #text("Facultad de Matemática y Computación", size: 14pt, top-edge: 0em)
+
+   #image("uhlogo.svg", width: 15%)
+
+   #v(70pt)
+
   *#title*
 
-  _Héctor M. Rodríguez Sosa_
+   #v(60pt)
+   #text("Autor:", 18pt)
 
-    _Universidad de La Habana_
+   #text([*#author*], 20pt, top-edge: .2em)
+
+   #v(10pt)
+   #text("Tutores:", 18pt)
+
+   #text([*#advisor*], 20pt, top-edge: .2em)
+   
+
+   #v(40pt)
+   #text("Trabajo de diploma", 14pt)
+
+   #text("presentado en opción al título de", 14pt, top-edge: 0pt)
+   
+   #text("Licenciado en Ciencia de la Computación", 14pt, top-edge: 0pt)
+
+   #text("9 de febrero 2025", 14pt, top-edge: 10pt)
+
+   #text("github.com/hmrguez/FinNet", 14pt, top-edge: 10pt)
+  
+
 ])
+
+
+
 
 #set page(
   header: align(right)[
