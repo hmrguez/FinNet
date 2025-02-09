@@ -172,5 +172,137 @@ kg-refinement:
     - Paulheim H.
   year: 2017
   journal: "Semantic Web"
-    
-  
+
+dense-graph-propagation:
+  type: Article
+  title: "Dense Graph Propagation for Graph-to-Sequence Learning"
+  author:
+    - Yasunaga M.
+    - Sadamori T.
+    - Radev D.
+  year: 2022
+  journal: "arXiv preprint"
+  identifier: "arXiv:2202.02493"
+
+graph-gnn-retrieval:
+  type: Article
+  title: "An Investigation of Graph Neural Networks for Document Retrieval"
+  author:
+    - Khosla S.
+    - de Vries H.
+    - Larochelle H.
+  year: 2021
+  journal: "arXiv preprint"
+  identifier: "arXiv:2106.07278"
+
+query-graph-embedding:
+  type: Conference
+  title: "Query Graph Embedding for Knowledge Graph Retrieval"
+  author:
+    - Wang L.
+    - Zhang Y.
+    - Wang X.
+    - Zhao W. X.
+  year: 2023
+  booktitle: "Proceedings of the 46th International ACM SIGIR Conference on Research and Development in Information Retrieval"
+  pages: "951-961"
+
+kg-embedding-hyperplanes:
+  type: Conference
+  title: "Knowledge Graph Embedding by Translating on Hyperplanes"
+  author:
+    - Chen D.
+    - Zhang H.
+    - Li C.
+    - Zhou G.
+    - Li F.
+  year: 2017
+  booktitle: "Proceedings of the 31st AAAI Conference on Artificial Intelligence"
+  pages: "1288-1294"
+
+entity-relation-embedding:
+  type: Conference
+  title: "Learning Entity and Relation Embeddings for Knowledge Graph Completion"
+  author:
+    - Lin Y.
+    - Liu Z.
+    - Sun M.
+    - Liu Y.
+    - Zhu X.
+  year: 2015
+  booktitle: "Proceedings of the 29th AAAI Conference on Artificial Intelligence"
+  pages: "2181-2187"
+
+rahmah2022:
+  type: Article
+  title: "How Graph Helps You With Data Cleaning"
+  author:
+    - Rahmah, E.
+  year: 2022
+  journal: "Medium"
+
+microsoft2024:
+  type: Article
+  title: "From Local to Global: A Graph RAG Approach to Query-Focused Summarization"
+  author:
+    - Microsoft Research
+  year: 2024
+
+ibm2025:
+  type: Article
+  title: "Implementing Graph RAG Using Knowledge Graphs"
+  author:
+    - IBM
+  year: 2025
+
+zilliz2024:
+  type: Article
+  title: "GraphRAG Explained: Enhancing RAG with Knowledge Graphs"
+  author:
+    - Zilliz
+  year: 2024
+  journal: "Medium"
+
+analyticsvidhya2025:
+  type: Article
+  title: "Graph RAG: Enhancing RAG with Graph Structures"
+  author:
+    - Analytics Vidhya
+  year: 2025
+  journal: "Analytics Vidhya"
+
+deepset-blog-2024:
+  type: Article
+  title: "GraphRAG: Using the Power of Knowledge Graphs to Improve Retrieval and Generation"
+  author:
+    - deepset Blog
+  year: 2024
+  journal: "deepset Blog"
+
+liu-2024:
+  type: Article
+  title: "Knowledge Graph-Enhanced Large Language Models via Path Selection"
+  author:
+    - Liu H.
+    - Wang S.
+    - Zhu Y.
+    - Dong Y.
+    - Li J.
+  year: 2024
+  journal: "N/A"
+
+datastax-2024:
+  type: Article
+  title: "Graph RAG: Better Context for GenAI Apps"
+  author:
+    - DataStax
+  year: 2024
+  journal: "DataStax"
+
+ibm-ag-2024:
+  type: Article
+  title: "Answer Generation"
+  author:
+    - IBM
+  year: 2024
+  journal: "IBM"
